@@ -1,412 +1,122 @@
-const text = "whoami";
-const typingElement = document.getElementById("typing");
-
-let index = 0;
-
-function typeText() {
-
-    if (index < text.length) {
-
-        typingElement.textContent += text.charAt(index);
-
-        index++;
-
-        setTimeout(typeText, 100);
-    }
+const root = document.documentElement;
+const toggles = document.querySelectorAll('.theme-toggle');
+function syncTheme() {
+  const light = root.dataset.theme === 'light';
+  toggles.forEach(button => {
+    button.setAttribute('aria-pressed', String(light));
+    button.setAttribute('aria-label', `Switch to ${light ? 'dark' : 'light'} mode`);
+    const label = button.querySelector('.theme-label');
+    if (label) label.textContent = light ? 'Dark mode' : 'Light mode';
+    button.querySelector('.theme-glyph').textContent = light ? '☾' : '☼';
+  });
+  document.querySelector('meta[name="theme-color"]').content = light ? '#fdf6e3' : '#101919';
 }
+toggles.forEach(button => button.addEventListener('click', () => {
+  root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+  try { localStorage.setItem('brandon-theme', root.dataset.theme); } catch (e) {}
+  syncTheme();
+}));
+syncTheme();
 
-typeText();
-
-/* =========================
-   Scroll Reveal
-========================= */
-
-const revealElements = document.querySelectorAll(".reveal");
-
-const revealObserver = new IntersectionObserver(
-    (entries) => {
-
-        entries.forEach((entry) => {
-
-            if (entry.isIntersecting) {
-
-                entry.target.classList.add("active");
-
-                revealObserver.unobserve(entry.target);
-            }
-
-        });
-
-    },
-    {
-        threshold: 0.15
-    }
-);
-
-
-revealElements.forEach((element) => {
-
-    revealObserver.observe(element);
-
-});
-
-
-/* =========================
-   Active Navigation
-========================= */
-
-const sections = document.querySelectorAll(
-    "#about, #projects, #skills, #contact"
-);
-
-const navLinks = document.querySelectorAll(".nav-links a");
-
-
-const navObserver = new IntersectionObserver(
-    (entries) => {
-
-        entries.forEach((entry) => {
-
-            if (entry.isIntersecting) {
-
-                const sectionId = entry.target.id;
-
-                navLinks.forEach((link) => {
-
-                    link.classList.remove("active");
-
-                    if (link.getAttribute("href") === `#${sectionId}`) {
-                        link.classList.add("active");
-                    }
-
-                });
-
-            }
-
-        });
-
-    },
-    {
-        rootMargin: "-35% 0px -55% 0px"
-    }
-);
-
-
-sections.forEach((section) => {
-    navObserver.observe(section);
-});
-
-/* =========================
-   Animated Terminal
-========================= */
-
-const terminalCommand = document.getElementById("terminal-command");
-const terminalOutput = document.getElementById("terminal-output");
-
-const terminalSequence = [
-    {
-        command: "whoami",
-        output: "brandon"
-    },
-    {
-        command: "cat skills.txt",
-        output: "Linux\nOffensive Security\nDetection Engineering\nSIEM / SOAR"
-    },
-    {
-        command: "ls projects/",
-        output: "connected/\nwazuh-soar/\nsentinel-honeypot/"
-    },
-    {
-        command: "cat status.txt",
-        output: "SYSTEM ONLINE\nCURRENT MODE: BUILDING"
-    }
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const sequence = [
+  { command: 'whoami', output: 'brandon\nIT specialist → security operations' },
+  { command: 'ls investigations/', output: 'wireshark/  soc-pipeline/  ioc-analyzer/' },
+  { command: 'cat focus.txt', output: 'Incident response\nDetection engineering\nNetwork and host analysis' },
+  { command: 'echo $STATUS', output: 'CURIOUS. INVESTIGATING. BUILDING.' }
 ];
-
-let terminalSequenceIndex = 0;
-let terminalCharIndex = 0;
-
-
-function typeTerminalCommand() {
-
-    const currentItem = terminalSequence[terminalSequenceIndex];
-
-    if (terminalCharIndex < currentItem.command.length) {
-
-        terminalCommand.textContent +=
-            currentItem.command.charAt(terminalCharIndex);
-
-        terminalCharIndex++;
-
-        setTimeout(typeTerminalCommand, 70);
-
-    } else {
-
+const terminalCommand = document.getElementById('terminal-command');
+const terminalOutput = document.getElementById('terminal-output');
+if (!reducedMotion.matches && terminalCommand && terminalOutput) {
+  let item = 0;
+  const cycle = () => {
+    const current = sequence[item];
+    terminalCommand.textContent = '';
+    terminalOutput.textContent = '';
+    let char = 0;
+    const type = () => {
+      if (char < current.command.length) {
+        terminalCommand.textContent += current.command.charAt(char++);
+        setTimeout(type, 65);
+      } else {
         setTimeout(() => {
-            showTerminalOutput(currentItem);
-        }, 400);
-
-    }
-
+          terminalOutput.textContent = current.output;
+          item = (item + 1) % sequence.length;
+          setTimeout(cycle, 2500);
+        }, 320);
+      }
+    };
+    type();
+  };
+  cycle();
+} else if (terminalOutput) {
+  terminalOutput.textContent = sequence[0].output;
 }
 
-
-function showTerminalOutput(item) {
-
-    const commandLine = document.createElement("p");
-
-    commandLine.innerHTML =
-        `<span class="terminal-green">brandon@cyber</span>:~$ ${item.command}`;
-
-
-    const outputLine = document.createElement("p");
-
-    outputLine.classList.add("terminal-output");
-
-    outputLine.textContent = item.output;
-
-
-    terminalOutput.appendChild(commandLine);
-    terminalOutput.appendChild(outputLine);
-
-    while (terminalOutput.children.length > 6) {
-        terminalOutput.removeChild(terminalOutput.firstChild);
-    }
-
-
-    terminalCommand.textContent = "";
-
-    terminalCharIndex = 0;
-
-    terminalSequenceIndex++;
-
-
-    if (terminalSequenceIndex >= terminalSequence.length) {
-        terminalSequenceIndex = 0;
-    }
-
-
-    setTimeout(typeTerminalCommand, 900);
-}
-
-
-typeTerminalCommand();
-
-/* =========================
-   Floating Network Background
-========================= */
-
-const networkCanvas = document.getElementById("network-bg");
-const networkCtx = networkCanvas.getContext("2d");
-
-let networkNodes = [];
-
-
-/* Number of floating circles */
-const nodeCount = 7;
-
-
-/* Resize canvas */
-function resizeNetworkCanvas() {
-
-    networkCanvas.width = window.innerWidth;
-    networkCanvas.height = window.innerHeight;
-
-}
-
-
-/* Create nodes */
-function createNetworkNodes() {
-
-    networkNodes = [];
-
-    for (let i = 0; i < nodeCount; i++) {
-
-        networkNodes.push({
-
-            x: Math.random() * networkCanvas.width,
-            y: Math.random() * networkCanvas.height,
-
-            radius: Math.random() * 2 + 2,
-
-            velocityX:
-                (Math.random() - 0.5) * 0.38,
-
-            velocityY:
-                (Math.random() - 0.5) * 0.38
-
-        });
-
-    }
-
-}
-
-
-/* Draw glowing node */
-function drawNetworkNode(node) {
-
-    const glow = networkCtx.createRadialGradient(
-        node.x,
-        node.y,
-        0,
-        node.x,
-        node.y,
-        25
-    );
-
-    glow.addColorStop(
-        0,
-        "rgba(0, 255, 156, 0.35)"
-    );
-
-    glow.addColorStop(
-        0.25,
-        "rgba(0, 255, 156, 0.12)"
-    );
-
-    glow.addColorStop(
-        1,
-        "rgba(0, 255, 156, 0)"
-    );
-
-
-    networkCtx.beginPath();
-
-    networkCtx.arc(
-        node.x,
-        node.y,
-        25,
-        0,
-        Math.PI * 2
-    );
-
-    networkCtx.fillStyle = glow;
-
-    networkCtx.fill();
-
-
-    /* Center circle */
-
-    networkCtx.beginPath();
-
-    networkCtx.arc(
-        node.x,
-        node.y,
-        node.radius,
-        0,
-        Math.PI * 2
-    );
-
-    networkCtx.fillStyle =
-        "rgba(0, 255, 156, 0.55)";
-
-    networkCtx.fill();
-
-}
-
-
-/* Connect two nodes */
-function connectNodes(first, second) {
-
-    networkCtx.beginPath();
-
-    networkCtx.moveTo(
-        first.x,
-        first.y
-    );
-
-    networkCtx.lineTo(
-        second.x,
-        second.y
-    );
-
-    networkCtx.strokeStyle =
-        "rgba(0, 255, 156, 0.10)";
-
-    networkCtx.lineWidth = 1;
-
-    networkCtx.stroke();
-
-}
-
-
-/* Animation */
-function animateNetwork() {
-
-    networkCtx.clearRect(
-        0,
-        0,
-        networkCanvas.width,
-        networkCanvas.height
-    );
-
-
-    networkNodes.forEach((node) => {
-
-        node.x += node.velocityX;
-        node.y += node.velocityY;
-
-
-        /* Bounce from edges */
-
-        if (
-            node.x < 0 ||
-            node.x > networkCanvas.width
-        ) {
-
-            node.velocityX *= -1;
-
-        }
-
-
-        if (
-            node.y < 0 ||
-            node.y > networkCanvas.height
-        ) {
-
-            node.velocityY *= -1;
-
-        }
-
-
-        drawNetworkNode(node);
-
+const revealElements = document.querySelectorAll('.reveal');
+if ('IntersectionObserver' in window && !reducedMotion.matches) {
+  root.classList.add('has-motion');
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        revealObserver.unobserve(entry.target);
+      }
     });
-
-
-    /*
-       Only two connections.
-       Keeps it from becoming a busy
-       particle-network effect.
-    */
-
-    if (networkNodes.length >= 4) {
-
-        connectNodes(
-            networkNodes[0],
-            networkNodes[1]
-        );
-
-        connectNodes(
-            networkNodes[2],
-            networkNodes[3]
-        );
-
-    }
-
-
-    requestAnimationFrame(
-        animateNetwork
-    );
-
+  }, { threshold: 0.08, rootMargin: '0px 0px 80px 0px' });
+  revealElements.forEach(element => revealObserver.observe(element));
+} else {
+  revealElements.forEach(element => element.classList.add('active'));
 }
 
+const navLinks = document.querySelectorAll('.nav-links a, .mobile-links a');
+const sections = document.querySelectorAll('#recent, #projects, #about, #skills, #contact');
+if ('IntersectionObserver' in window) {
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach(link => {
+        const active = link.getAttribute('href') === `#${entry.target.id}`;
+        link.classList.toggle('active', active);
+        if (active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(section => navObserver.observe(section));
+}
 
-window.addEventListener(
-    "resize",
-    resizeNetworkCanvas
-);
+const skillCards = document.querySelectorAll('.skill-card');
+const mobileSkills = window.matchMedia('(max-width: 700px)');
+function setSkillLayout() {
+  if (mobileSkills.matches) skillCards.forEach((card, index) => { card.open = index === 0; });
+  else skillCards.forEach(card => { card.open = true; });
+}
+setSkillLayout();
+mobileSkills.addEventListener('change', setSkillLayout);
 
-
-resizeNetworkCanvas();
-createNetworkNodes();
-animateNetwork();
+const canvas = document.getElementById('network-bg');
+const ctx = canvas?.getContext('2d');
+if (ctx && !reducedMotion.matches) {
+  const dots = Array.from({ length: 10 }, () => ({ x: Math.random(), y: Math.random(), dx: (Math.random() - .5) * .00014, dy: (Math.random() - .5) * .00014 }));
+  function resize() { canvas.width = window.innerWidth * Math.min(window.devicePixelRatio || 1, 2); canvas.height = window.innerHeight * Math.min(window.devicePixelRatio || 1, 2); }
+  window.addEventListener('resize', resize, { passive: true }); resize();
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const light = root.dataset.theme === 'light';
+    const color = light ? '38, 139, 130' : '105, 210, 166';
+    dots.forEach(dot => {
+      dot.x += dot.dx; dot.y += dot.dy;
+      if (dot.x < 0 || dot.x > 1) dot.dx *= -1;
+      if (dot.y < 0 || dot.y > 1) dot.dy *= -1;
+      const x = dot.x * canvas.width, y = dot.y * canvas.height;
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, 28);
+      gradient.addColorStop(0, `rgba(${color}, .16)`);
+      gradient.addColorStop(1, `rgba(${color}, 0)`);
+      ctx.fillStyle = gradient; ctx.beginPath(); ctx.arc(x, y, 28, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = `rgba(${color}, .5)`; ctx.beginPath(); ctx.arc(x, y, 2, 0, Math.PI * 2); ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
