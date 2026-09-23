@@ -71,20 +71,32 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
 
 const navLinks = document.querySelectorAll('.nav-links a, .mobile-links a');
 const sections = document.querySelectorAll('#recent, #projects, #about, #skills, #contact');
-if ('IntersectionObserver' in window) {
-  const navObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      navLinks.forEach(link => {
-        const active = link.getAttribute('href') === `#${entry.target.id}`;
-        link.classList.toggle('active', active);
-        if (active) link.setAttribute('aria-current', 'location');
-        else link.removeAttribute('aria-current');
-      });
+let navUpdatePending = false;
+function updateActiveNav() {
+  navUpdatePending = false;
+  let activeId = 'top';
+  if (window.scrollY > 10) {
+    const marker = window.scrollY + Math.min(window.innerHeight * .35, 240);
+    sections.forEach(section => {
+      if (section.getBoundingClientRect().top + window.scrollY <= marker) activeId = section.id;
     });
-  }, { rootMargin: '-30% 0px -60% 0px' });
-  sections.forEach(section => navObserver.observe(section));
+  }
+  navLinks.forEach(link => {
+    const active = link.getAttribute('href') === `#${activeId}`;
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
 }
+function scheduleNavUpdate() {
+  if (navUpdatePending) return;
+  navUpdatePending = true;
+  requestAnimationFrame(updateActiveNav);
+}
+window.addEventListener('scroll', scheduleNavUpdate, { passive: true });
+window.addEventListener('resize', scheduleNavUpdate, { passive: true });
+window.addEventListener('hashchange', scheduleNavUpdate);
+updateActiveNav();
 
 const skillCards = document.querySelectorAll('.skill-card');
 const mobileSkills = window.matchMedia('(max-width: 700px)');
@@ -104,7 +116,7 @@ if (ctx && !reducedMotion.matches) {
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const light = root.dataset.theme === 'light';
-    const color = light ? '38, 139, 130' : '105, 210, 166';
+    const color = light ? '163, 75, 20' : '105, 210, 166';
     dots.forEach(dot => {
       dot.x += dot.dx; dot.y += dot.dy;
       if (dot.x < 0 || dot.x > 1) dot.dx *= -1;
