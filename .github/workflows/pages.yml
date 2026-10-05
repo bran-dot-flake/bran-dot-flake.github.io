@@ -28,20 +28,22 @@ jobs:
           ref: ${{ github.event.repository.default_branch }}
       - name: Refresh public profile stats
         run: python3 scripts/refresh_stats.py
-      - name: Save the latest successful counts
+      - name: Refresh public GitHub contributions
+        run: python3 scripts/refresh_contributions.py
+      - name: Save the latest successful counts and calendar
         run: |
-          if git diff --quiet -- stats.js; then exit 0; fi
+          if git diff --quiet -- stats.js contributions.js; then exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add stats.js
-          git commit -m 'Refresh public training stats'
+          git add stats.js contributions.js
+          git commit -m 'Refresh public training stats and GitHub calendar'
           git pull --rebase
           git push
       - uses: actions/configure-pages@v5
       - name: Prepare static site
         run: |
           mkdir _site
-          cp *.html style.css script.js content.js stats.js CNAME _site/
+          cp *.html style.css script.js content.js stats.js graphs.js contributions.js CNAME _site/
           cp -R assets _site/assets
       - uses: actions/upload-pages-artifact@v4
         with:
