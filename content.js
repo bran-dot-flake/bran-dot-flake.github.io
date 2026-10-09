@@ -13,7 +13,7 @@ window.PORTFOLIO_CONTENT = {
     },
     htb: {
       profileUrl: 'https://app.hackthebox.com/users/3476736?profile-top-tab=machines&ownership-period=1M&profile-bottom-tab=prolabs',
-      metrics: [5, 4], // Machines solved, Sherlocks completed
+      metrics: [5, 9], // Machines solved, Sherlocks completed
       progress: null,
     },
     kc7: {

@@ -1,4 +1,4 @@
-name: Refresh stats and publish portfolio
+name: Refresh public activity and publish portfolio
 
 on:
   push:
@@ -28,22 +28,24 @@ jobs:
           ref: ${{ github.event.repository.default_branch }}
       - name: Refresh public profile stats
         run: python3 scripts/refresh_stats.py
-      - name: Refresh public GitHub contributions
-        run: python3 scripts/refresh_contributions.py
-      - name: Save the latest successful counts and calendar
+      - name: Refresh public activity and writeups
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/refresh_activity.py
+      - name: Save the latest successful public snapshots
         run: |
-          if git diff --quiet -- stats.js contributions.js; then exit 0; fi
+          if git diff --quiet -- stats.js activity.js field-notes.js index.html blogs.html; then exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add stats.js contributions.js
-          git commit -m 'Refresh public training stats and GitHub calendar'
+          git add stats.js activity.js field-notes.js index.html blogs.html
+          git commit -m 'Refresh public activity, field notes, and training stats'
           git pull --rebase
           git push
       - uses: actions/configure-pages@v5
       - name: Prepare static site
         run: |
           mkdir _site
-          cp *.html style.css script.js content.js stats.js graphs.js contributions.js CNAME _site/
+          cp *.html *.js style.css CNAME _site/
           cp -R assets _site/assets
       - uses: actions/upload-pages-artifact@v4
         with:

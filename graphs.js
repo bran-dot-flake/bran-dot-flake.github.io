@@ -1,4 +1,4 @@
-/* Page-only graphs. GitHub uses a saved daily snapshot; blog topics use the cards. */
+/* Page-only indexes: project outcomes and the blog topic constellation. */
 (() => {
   'use strict';
   const ns = 'http://www.w3.org/2000/svg';
@@ -8,87 +8,106 @@
     if (text !== undefined) node.textContent = text;
     return node;
   };
-  const shortDate = value => new Date(value + 'T12:00:00Z').toLocaleDateString('en-US', {
-    month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
-  });
-
-  const calendar = document.querySelector('[data-contribution-graph]');
-  if (calendar) {
-    const data = window.PORTFOLIO_CONTRIBUTIONS;
-    const valid = data && Number.isInteger(data.total) && data.total >= 0 &&
-      Array.isArray(data.days) && data.days.length >= 365 && data.days.length <= 367 &&
-      data.days.every(day => Array.isArray(day) && /^\d{4}-\d{2}-\d{2}$/.test(day[0]) &&
-        Number.isInteger(day[1]) && day[1] >= 0 && Number.isInteger(day[2]) && day[2] >= 0 && day[2] <= 4) &&
-      data.days.reduce((sum, day) => sum + day[1], 0) === data.total;
-    if (valid) {
-      const svg = svgNode('svg', {
-        viewBox: '0 0 880 157', class: 'contribution-calendar', role: 'grid',
-        'aria-label': `${data.total} GitHub contributions in the last year. Use arrow keys to explore days.`,
-        'aria-rowcount': '7',
-      });
-      const first = new Date(data.days[0][0] + 'T00:00:00Z');
-      const firstWeekday = first.getUTCDay();
-      const columns = Math.ceil((firstWeekday + data.days.length) / 7);
-      svg.setAttribute('aria-colcount', columns);
-      const detail = calendar.querySelector('[data-day-detail]');
-      const rows = Array.from({ length: 7 }, (_, i) => svgNode('g', { role: 'row', 'aria-rowindex': i + 1 }));
-      const cells = [];
-      let active = data.days.length - 1;
-      let previousMonth = '';
-      data.days.forEach(([date, count, level], index) => {
-        const day = new Date(date + 'T00:00:00Z');
-        const weekday = day.getUTCDay();
-        const column = Math.floor((index + firstWeekday) / 7);
-        const x = 44 + column * 15.4;
-        const month = date.slice(0, 7);
-        if (month !== previousMonth) {
-          svg.append(svgNode('text', { x, y: 14, class: 'graph-axis', 'aria-hidden': 'true' },
-            day.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' })));
-          previousMonth = month;
-        }
-        const label = `${shortDate(date)}: ${count} contribution${count === 1 ? '' : 's'}`;
-        const cell = svgNode('rect', {
-          x, y: 26 + weekday * 15.4, width: 11.5, height: 11.5, rx: 2.5,
-          class: `contribution-day contribution-level-${level}`, role: 'gridcell',
-          'aria-label': label, 'aria-colindex': column + 1,
-          tabindex: index === active ? 0 : -1,
+  // The evidence index includes every project card. Outcomes live on the cards;
+  // the static index is a no-JavaScript fallback for the same links and results.
+  const evidenceBoard = document.querySelector('[data-project-evidence]');
+  if (evidenceBoard) {
+    const cards = [...document.querySelectorAll('.work-grid > .work-card')];
+    const element = (tag, className, text) => {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    };
+    const preview = card => {
+      const artifact = element('div', 'evidence-artifact');
+      artifact.setAttribute('aria-hidden', 'true');
+      const type = card.dataset.evidencePreview;
+      const labels = { pipeline: 'WORKFLOW TRACE / ELAPSED TIME', ioc: 'BATCH ENRICHMENT / EXPORT',
+        packets: 'INVESTIGATION FILES', azure: 'SENTINEL / GEOIP WORKBOOK' };
+      artifact.append(element('span', 'evidence-artifact-label', labels[type] || 'PROJECT OVERVIEW'));
+      if (type === 'pipeline') {
+        const flow = element('div', 'evidence-flow');
+        [['VirusTotal', '1.409 s'], ['TheHive', '2.565 s'], ['Email', '2.905 s']].forEach(([name, time], i) => {
+          if (i) flow.append(element('b', '', '→'));
+          const stage = element('span', '', name);
+          stage.append(element('small', '', time)); flow.append(stage);
         });
-        cell.append(svgNode('title', {}, label));
-        const show = () => {
-          cells[active]?.setAttribute('tabindex', '-1');
-          active = index;
-          cell.setAttribute('tabindex', '0');
-          detail.textContent = label;
-        };
-        cell.addEventListener('pointerenter', show);
-        cell.addEventListener('focus', show);
-        cell.addEventListener('click', show);
-        cell.addEventListener('keydown', event => {
-          const offsets = { ArrowLeft: -7, ArrowRight: 7, ArrowUp: -1, ArrowDown: 1 };
-          let next;
-          if (event.key in offsets) next = Math.max(0, Math.min(cells.length - 1, index + offsets[event.key]));
-          else if (event.key === 'Home') next = 0;
-          else if (event.key === 'End') next = cells.length - 1;
-          if (next !== undefined) { event.preventDefault(); cells[next].focus(); }
+        artifact.append(flow);
+      } else if (type === 'ioc') {
+        artifact.append(element('code', 'evidence-command', 'python ioc_analyzer.py --file iocs.txt --json --csv'));
+      } else if (type === 'packets') {
+        const files = element('div', 'evidence-cases');
+        ['HTTP', 'Nmap', 'TCP/53', 'IPv4', 'SMB3', 'Kerberos', 'TLS'].forEach((name, i) => {
+          const file = element('span');
+          file.append(element('small', '', String(i + 1).padStart(2, '0')), document.createTextNode(name));
+          files.append(file);
         });
-        cells.push(cell);
-        rows[weekday].append(cell);
-      });
-      ['Mon', 'Wed', 'Fri'].forEach((label, index) => {
-        svg.append(svgNode('text', { x: 0, y: 50 + index * 30.8, class: 'graph-axis', 'aria-hidden': 'true' }, label));
-      });
-      rows.forEach(row => svg.append(row));
-      const plot = calendar.querySelector('[data-calendar-plot]');
-      plot.replaceChildren(svg);
-      plot.scrollLeft = Math.max(0, plot.scrollWidth - plot.clientWidth);
-      calendar.querySelector('[data-contribution-total]').textContent = Number(data.total).toLocaleString('en-US');
-      const updated = new Date(data.updatedAt);
-      if (!Number.isNaN(updated.getTime())) {
-        calendar.querySelector('[data-calendar-updated]').textContent = 'Updated ' + updated.toLocaleDateString('en-US', {
-          month: 'short', day: 'numeric', timeZone: 'America/New_York',
-        });
+        artifact.append(files);
+      } else {
+        const image = element('img', 'evidence-map');
+        image.src = type === 'azure' ? 'assets/evidence-azure-map.png' : card.querySelector('.card-image img')?.getAttribute('src') || 'assets/pipeline.svg';
+        image.alt = ''; image.width = 560; image.height = 72;
+        artifact.append(image);
       }
+      return artifact;
+    };
+    const links = cards.map((card, i) => {
+      const fullName = card.querySelector('h2').textContent.trim();
+      if (!card.id) {
+        const base = 'project-' + fullName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        let id = base, suffix = 2;
+        while (document.getElementById(id)) id = `${base}-${suffix++}`;
+        card.id = id;
+      }
+      card.classList.add('project-evidence-card');
+      card.dataset.evidenceTone ||= String(i % 4);
+      const label = card.dataset.evidenceLabel || fullName;
+      const result = card.dataset.evidenceResult || 'Project notes';
+      const caption = card.dataset.evidenceCaption || 'process & outcome';
+      const outcome = card.dataset.evidenceOutcome || card.querySelector('.card-body > p:not(.card-category)')?.textContent.trim() || 'Explore the project and its documented process.';
+      const link = element('a', 'evidence-item');
+      link.href = '#' + card.id;
+      link.dataset.evidenceTone = card.dataset.evidenceTone;
+      link.setAttribute('aria-label', `${fullName}: ${result} ${caption}. Jump to project.`);
+      const head = element('div', 'evidence-item-head');
+      head.append(element('span', 'evidence-project-name', label), element('span', 'evidence-item-number', String(i + 1).padStart(2, '0')));
+      const metric = element('div', 'evidence-result');
+      metric.append(element('strong', '', result), element('span', '', caption));
+      const detail = element('div', 'evidence-preview-region');
+      detail.append(element('p', 'evidence-outcome', outcome), preview(card));
+      const footer = element('div', 'evidence-item-footer');
+      const action = element('span', '', 'View project '), arrow = element('b', '', '↓');
+      arrow.setAttribute('aria-hidden', 'true'); action.append(arrow);
+      footer.append(element('span', '', card.dataset.evidenceKind || 'PROJECT'), action);
+      link.append(head, metric, detail, footer);
+      link.addEventListener('click', event => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+        event.preventDefault();
+        if (location.hash !== '#' + card.id) history.pushState(null, '', '#' + card.id);
+        select(card.id);
+        card.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+        card.querySelector('h2 a').focus({ preventScroll: true });
+      });
+      return link;
+    });
+    function select(id) {
+      cards.forEach((card, i) => {
+        const active = card.id === id;
+        card.classList.toggle('topic-selected', active);
+        if (active) links[i].setAttribute('aria-current', 'true');
+        else links[i].removeAttribute('aria-current');
+      });
     }
+    const selectHash = () => {
+      try { select(decodeURIComponent(location.hash.slice(1))); }
+      catch (_) { select(''); }
+    };
+    evidenceBoard.querySelector('[data-evidence-grid]').replaceChildren(...links);
+    evidenceBoard.querySelector('[data-evidence-count]').textContent = `${cards.length} project${cards.length === 1 ? '' : 's'}`;
+    window.addEventListener('hashchange', selectHash);
+    window.addEventListener('popstate', selectHash);
+    selectHash();
   }
 
   const constellation = document.querySelector('[data-topic-graph]');
@@ -105,24 +124,27 @@
       });
     });
     if (!groups.size) return;
+    // Give each subject its own cluster. Two rows keep the growing collection
+    // legible; its labels and links come directly from the field-note cards.
+    const columns = Math.min(3, groups.size);
+    const rows = Math.ceil(groups.size / columns);
+    const width = 1080, rowHeight = 200, height = rows * rowHeight + 32;
     const svg = svgNode('svg', {
-      viewBox: '0 0 880 213', class: 'topic-constellation',
+      viewBox: `0 0 ${width} ${height}`, class: 'topic-constellation',
       role: 'group', 'aria-label': 'Blog topic constellation. Select a topic to jump to its field note.',
     });
     const lines = svgNode('g', { class: 'constellation-lines', 'aria-hidden': 'true' });
     const nodes = svgNode('g');
     svg.append(lines, nodes);
-    const root = { x: 440, y: 185 };
-    const connect = (a, b, curved = false) => {
-      lines.append(svgNode('path', {
-        d: curved ? `M${a.x},${a.y} Q${a.x},${b.y} ${b.x},${b.y}` : `M${a.x},${a.y} L${b.x},${b.y}`,
-      }));
+    const root = { x: width / 2, y: rows > 1 ? 208 : 179 };
+    const connect = (a, b) => {
+      lines.append(svgNode('path', { d: `M${a.x},${a.y} L${b.x},${b.y}` }));
     };
     const addNode = (point, label, groupIndex, card, hub = false) => {
-      const attrs = { class: `topic-node topic-tone-${groupIndex % 3}${hub ? ' topic-hub' : ''}` };
+      const attrs = { class: `topic-node topic-tone-${groupIndex % 5}${hub ? ' topic-hub' : ''}` };
       if (card) { attrs.href = '#' + card.id; attrs['aria-label'] = `${label}: jump to ${card.querySelector('h2').textContent.trim()}`; }
       const node = svgNode(card ? 'a' : 'g', attrs);
-      if (card) node.append(svgNode('rect', { x: point.x - 55, y: point.y - 15, width: 110, height: 49, fill: 'transparent' }));
+      if (card) node.append(svgNode('rect', { x: point.x - 60, y: point.y - 15, width: 120, height: 49, fill: 'transparent' }));
       if (hub) node.append(svgNode('circle', { cx: point.x, cy: point.y, r: 15, class: 'topic-halo' }));
       node.append(svgNode('circle', { cx: point.x, cy: point.y, r: hub ? 5 : 3.5, class: 'topic-dot' }));
       node.append(svgNode('text', { x: point.x, y: point.y + (hub ? 27 : 20), 'text-anchor': 'middle' }, label));
@@ -138,34 +160,30 @@
       }
       nodes.append(node);
     };
-    let topicCount = 1;
+    const uniqueTopics = new Set();
     [...groups.entries()].forEach(([name, group], index) => {
-      const width = 880 / groups.size;
-      const hub = { x: width * (index + .5), y: 81 };
-      connect(hub, root, true);
+      const row = Math.floor(index / columns);
+      const count = Math.min(columns, groups.size - row * columns);
+      const cellWidth = width / count;
+      const hub = { x: cellWidth * (index % columns + .5), y: row === 0 ? 132 : 285 + (row - 1) * rowHeight };
+      connect(hub, root);
       addNode(hub, name, index, group.cards[0], true);
-      const topics = [...group.topics.entries()];
+      const allTopics = [...group.topics.entries()];
+      allTopics.forEach(([topic]) => uniqueTopics.add(topic));
+      const topics = allTopics.slice(0, 6);
       topics.forEach(([topic, card], i) => {
-        const positions = [
-          { x: hub.x - width * .3, y: 27 },
-          { x: hub.x + width * .3, y: 27 },
-          { x: hub.x + width * .3 * (index === 0 ? -1 : 1), y: 154 },
-        ];
-        const topCount = Math.ceil(topics.length / 2);
-        const rowCount = i < topCount ? topCount : topics.length - topCount;
-        const rowIndex = i < topCount ? i : i - topCount;
-        const point = topics.length <= 3 ? positions[i] : {
-          x: hub.x + width * .62 * ((rowIndex + .5) / rowCount - .5),
-          y: i < topCount ? 27 : 154,
+        const tier = Math.floor(i / 3), tierSize = Math.min(3, topics.length - tier * 3);
+        const point = {
+          x: hub.x + (i % 3 - (tierSize - 1) / 2) * 106,
+          y: row === 0 ? 34 + tier * 44 : hub.y + 60 + tier * 44,
         };
         connect(hub, point);
         addNode(point, topic, index, card);
-        topicCount += 1;
+        uniqueTopics.add(topic);
       });
-      topicCount += 1;
     });
     addNode(root, 'Security', 1, null, false);
     constellation.querySelector('[data-topic-plot]').replaceChildren(svg);
-    constellation.querySelector('[data-topic-summary]').textContent = `${cards.length} field notes · ${topicCount} connected topics`;
+    constellation.querySelector('[data-topic-summary]').textContent = `${cards.length} field notes · ${groups.size} areas · ${uniqueTopics.size} topics`;
   }
 })();

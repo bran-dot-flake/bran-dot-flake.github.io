@@ -1,0 +1,43 @@
+{
+  "githubUser": "bran-dot-flake",
+  "htbUserId": 3476736,
+  "excludeRepositories": ["bran-dot-flake", "bran-dot-flake.github.io"],
+  "notes": {
+    "NoSignal-Hack-The-Box-Writeup": {
+      "id": "nosignal-note", "title": "NoSignal: following the CCTV traffic", "activityTitle": "NoSignal",
+      "group": "Network analysis", "topics": ["TShark", "RTSP", "RTP"],
+      "category": "HACK THE BOX / SHERLOCK · DFIR", "image": "assets/nosignal.svg",
+      "tags": ["TShark", "CCTV", "Hack The Box"]
+    },
+    "Threat-Hunting-with-Splunk-Hack-The-Box-Writeup": {
+      "id": "splunk-note", "title": "Threat Hunting with Splunk", "activityTitle": "Threat Hunting with Splunk",
+      "group": "Threat hunting", "topics": ["Splunk", "Sysmon", "C2"],
+      "category": "HACK THE BOX / SHERLOCK · THREAT HUNTING", "image": "assets/threat-hunt.svg",
+      "tags": ["Splunk", "Sysmon", "Hack The Box"]
+    },
+    "Remote_Access_Regret-Hack-The-Box-Writeup": {
+      "id": "remote-access-note", "title": "Remote Access Regret: tracing a tech support scam", "activityTitle": "Remote Access Regret",
+      "group": "Digital forensics", "topics": ["Chrome", "AnyDesk", "Artifacts"],
+      "category": "HACK THE BOX / SHERLOCK · DFIR", "image": "assets/remote-access.svg",
+      "tags": ["Chrome", "AnyDesk", "Hack The Box"]
+    },
+    "Connected-Hack-The-Box-Writeup": {
+      "id": "connected-note", "title": "Connected: from FreePBX to root", "activityTitle": "Connected",
+      "group": "Offensive security", "topics": ["FreePBX", "Linux", "SQL injection"],
+      "category": "HACK THE BOX / MACHINE", "image": "assets/connected.svg",
+      "tags": ["Hack The Box", "Linux"]
+    },
+    "Network-Traffic-Analysis-with-Wireshark": {
+      "id": "packets-note", "title": "What the packets reveal", "activityTitle": "Wireshark investigations",
+      "group": "Network analysis", "topics": ["Wireshark", "PCAP", "TLS"],
+      "category": "NETWORK ANALYSIS", "image": "assets/packets.svg",
+      "tags": ["Wireshark", "Investigation"]
+    },
+    "Automated-SOC-Pipeline-Using-Wazuh-Shuffle-and-TheHive": {
+      "id": "soc-note", "title": "Connecting the SOC workflow", "activityTitle": "my SOC automation pipeline",
+      "group": "SOC automation", "topics": ["Wazuh", "Shuffle", "TheHive"],
+      "category": "DETECTION & AUTOMATION", "image": "assets/pipeline.svg",
+      "tags": ["Wazuh", "Shuffle", "TheHive"]
+    }
+  }
+}

@@ -277,377 +277,157 @@
     });
   })();
 
-  const terminal = document.querySelector('[data-terminal-stage]');
-  const consoleEl = document.getElementById('terminal-console');
-  const historyEl = document.getElementById('terminal-history');
-  const bootEl = document.getElementById('terminal-boot');
-  const bootLog = document.getElementById('terminal-boot-log');
-  const splashEl = document.getElementById('terminal-splash');
-  const terminalControl = document.getElementById('terminal-control');
-  if (!terminal || !consoleEl || !historyEl || !bootEl || !bootLog || !splashEl || !terminalControl) return;
-
-  const MAX_TERMINAL_ENTRIES = 10;
-  const sequence = [
-    { command: 'whoami', output: ['brandon', 'IT specialist · security operations'] },
-    { command: 'ls investigations/', output: ['wireshark/  soc-pipeline/', 'ioc-analyzer/  sentinel/'] },
-    { command: 'cat focus.txt', output: ['Incident response', 'Detection engineering', 'Network and host analysis'] },
-    { command: 'echo $STATUS', output: ['CURIOUS. INVESTIGATING.', 'BUILDING.'] },
-  ];
-  const services = [
-    ['OK', 'Starting portfolio kernel...'], ['OK', 'Mounted /home/brandon.'],
-    ['OK', 'Starting curiosity.service...'], ['OK', 'Loading system fundamentals...'],
-    ['OK', 'Starting network interfaces...'], ['OK', 'Connected to the lab.'],
-    ['WARN', 'Optional live feed unavailable.'], ['OK', 'Loading local packet captures...'],
-    ['OK', 'Starting host telemetry...'], ['OK', 'Starting sysmon.service...'],
-    ['FAILED', 'Demo telemetry connection timed out.'], ['OK', 'Continuing with saved lab notes.'],
-    ['OK', 'Starting wazuh.service...'], ['OK', 'Starting shuffle.service...'],
-    ['OK', 'Connecting TheHive...'], ['OK', 'Loading IOC enrichment...'],
-    ['WARN', 'Verbose logging disabled.'], ['OK', 'Starting sentinel.service...'],
-    ['OK', 'Indexing investigation notes...'], ['FAILED', 'Optional sandbox probe offline.'],
-    ['OK', 'Fallback workspace ready.'], ['OK', 'Mounted /projects.'],
-    ['OK', 'Mounted /blogs.'], ['OK', 'Loading certifications...'],
-    ['OK', 'Loading experience timeline...'], ['OK', 'Starting terminal session...'],
-    ['OK', 'All systems ready.'], ['OK', 'Launching portfolio...'],
-  ];
-  const BOOT_LINE_DELAY = 55;
-  const BOOT_SETTLE_DELAY = 220;
-  const NAME_DECODE_DURATION = 850;
-  const nameDecoder = (() => {
-    const heading = document.getElementById('hero-title');
-    const whoami = document.getElementById('hero-whoami');
-    if (!heading) return null;
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#+/=_$@';
-    const letters = [];
-    heading.querySelectorAll('[data-name-part]').forEach(part => {
-      const nodes = [...part.textContent].map(char => {
-        const node = document.createElement('span');
-        node.className = 'decode-character';
-        node.textContent = char;
-        letters.push({ node, char });
-        return node;
-      });
-      part.replaceChildren(...nodes);
+  // Recent work is a saved public snapshot: no credentials or third-party
+  // requests are sent by visitors' browsers. Static HTML remains a fallback.
+  (() => {
+    const list = document.querySelector('[data-recent-actions]');
+    const snapshot = window.PORTFOLIO_ACTIVITY;
+    if (!list || !Array.isArray(snapshot?.items)) return;
+    const items = snapshot.items.filter(item => typeof item.title === 'string' &&
+      typeof item.action === 'string' && publicUrl(item.url) &&
+      Number.isFinite(Date.parse(item.date))).slice(0, 3);
+    if (!items.length) return;
+    const rows = items.map(item => {
+      const row = document.createElement('li');
+      row.className = 'recent-action';
+      const link = document.createElement('a');
+      link.href = publicUrl(item.url); link.target = '_blank'; link.rel = 'noopener noreferrer';
+      const action = item.action.charAt(0).toUpperCase() + item.action.slice(1);
+      const kind = item.source === 'htb' ? (item.detail?.includes('Sherlock') ? ' Sherlock' : ' machine') : '';
+      link.textContent = `${action} ${item.title}${kind}`;
+      link.title = `${link.textContent} · ${item.detail || (item.source === 'htb' ? 'Hack The Box' : 'GitHub')}`;
+      const time = document.createElement('time'); time.dateTime = item.date;
+      time.title = new Date(item.date).toLocaleString('en-US', { timeZone: 'America/New_York' }) + ' ET';
+      row.append(link, time);
+      return row;
     });
-    let timer = null, active = false, elapsed = 0, previous = 0, duration = NAME_DECODE_DURATION, run = 0;
-    function finish(expectedRun) {
-      if (expectedRun !== undefined && expectedRun !== run) return;
-      clearTimeout(timer);
-      timer = null;
-      active = false;
-      if (whoami) whoami.textContent = 'whoami';
-      letters.forEach(({ node, char }) => { node.textContent = char; node.dataset.locked = 'true'; });
-      heading.dataset.nameState = 'resolved';
-      heading.dataset.nameLocked = String(letters.length);
-    }
-    function paint() {
-      if (whoami) whoami.textContent = 'whoami'.slice(0, Math.min(6, Math.floor(elapsed / 100)));
-      // A short scrambled lead-in, then characters lock in from left to right.
-      const progress = Math.max(0, Math.min(1, (elapsed / duration - .12) / .88));
-      const locked = Math.floor(progress * letters.length);
-      letters.forEach(({ node, char }, i) => {
-        const resolved = i < locked;
-        node.dataset.locked = String(resolved);
-        node.textContent = resolved ? char : alphabet[Math.floor(Math.random() * alphabet.length)];
+    list.replaceChildren(...rows);
+    function updateTimes() {
+      rows.forEach((row, i) => {
+        const date = new Date(items[i].date);
+        const age = Math.max(0, (Date.now() - date.getTime()) / 1000);
+        const relative = age < 60 ? 'just now' : age < 3600 ? `${Math.floor(age / 60)}m ago` :
+          age < 86400 ? `${Math.floor(age / 3600)}h ago` : age < 604800 ? `${Math.floor(age / 86400)}d ago` : null;
+        row.querySelector('time').textContent = relative || date.toLocaleDateString('en-US', {
+          month: 'short', day: 'numeric', timeZone: 'America/New_York',
+        });
       });
-      heading.dataset.nameLocked = String(locked);
     }
-    function tick() {
-      timer = null;
-      if (!active || document.hidden || motion.matches) return;
-      const now = performance.now();
-      elapsed += now - previous;
-      previous = now;
-      if (elapsed >= duration) { finish(); return; }
-      paint();
-      timer = setTimeout(tick, Math.min(50, duration - elapsed));
-    }
-    function start() {
-      clearTimeout(timer);
-      timer = null;
-      run += 1;
-      if (motion.matches || document.hidden) { finish(); return run; }
-      active = true;
-      elapsed = 0;
-      previous = performance.now();
-      heading.dataset.nameState = 'decoding';
-      paint();
-      timer = setTimeout(tick, 50);
-      return run;
-    }
-    function pause() {
-      if (active) elapsed += Math.max(0, performance.now() - previous);
-      clearTimeout(timer);
-      timer = null;
-    }
-    function resume() {
-      if (!active || motion.matches) return;
-      if (elapsed >= duration) { finish(); return; }
-      previous = performance.now();
-      clearTimeout(timer);
-      timer = setTimeout(tick, Math.min(50, duration - elapsed));
-    }
-    heading.querySelectorAll('[data-name-hover]').forEach(target => {
-      target.addEventListener('pointerenter', event => {
-        if (event.pointerType !== 'touch') start();
-      });
-    });
-    finish();
-    return { start, finish, pause, resume };
+    updateTimes();
+    setInterval(updateTimes, 60000);
   })();
-  let commandEl = document.getElementById('terminal-command');
-  let outputEl = document.getElementById('terminal-output');
-  const cursorEl = consoleEl.querySelector('.cursor');
-  let loadingDots, timer = null, nextStep = null, remaining = 0, deadline = 0, index = 0, scrollAnimation = null;
 
-  // One scheduled callback, including when paused. Replay and skip cancel it first.
-  function cancelStep() {
-    clearTimeout(timer);
-    timer = null;
-    nextStep = null;
-  }
-  function schedule(callback, delay) {
-    clearTimeout(timer);
-    timer = null;
-    nextStep = callback;
-    remaining = delay;
-    deadline = performance.now() + delay;
-    if (document.hidden || motion.matches) return;
-    timer = setTimeout(() => {
-      timer = null;
-      nextStep = null;
-      callback();
-    }, delay);
-  }
-  function setStage(stage) {
-    terminal.dataset.terminalStage = stage;
-    consoleEl.hidden = stage !== 'console';
-    bootEl.hidden = stage !== 'boot';
-    splashEl.hidden = stage !== 'splash';
-    const label = stage === 'console' ? 'Replay terminal startup' : 'Skip terminal startup';
-    terminalControl.setAttribute('aria-label', label);
-    terminalControl.title = label;
-  }
-  function followLatest(fromY) {
-    const offset = Math.max(0, historyEl.scrollHeight - consoleEl.clientHeight);
-    consoleEl.classList.toggle('is-scrolling', offset > 0);
-    const target = `translateY(-${offset}px)`;
-    if (fromY === undefined && historyEl.style.transform === target) return;
-    const startY = fromY ?? historyEl.getBoundingClientRect().top - consoleEl.getBoundingClientRect().top;
-    scrollAnimation?.cancel();
-    scrollAnimation = null;
-    historyEl.style.transform = target;
-    if (!motion.matches && Math.abs(startY + offset) > .5) {
-      // Explicit keyframes animate even when pruning leaves the final offset unchanged.
-      scrollAnimation = historyEl.animate([
-        { transform: `translateY(${startY}px)` },
-        { transform: target },
-      ], { duration: 180, easing: 'ease-out' });
+  // Only the skills centerpiece turns, with long rests between orientations.
+  // Pointer position and a focused selector must not silently disable autoplay.
+  (() => {
+    const visual = document.querySelector('[data-skills-cube]');
+    if (!visual) return;
+    const orbit = visual.querySelector('.skills-orbit');
+    const pause = visual.querySelector('[data-skills-pause]');
+    const selectors = [...visual.querySelectorAll('[data-skill-select]')];
+    const areas = [
+      { title: 'Security operations', detail: 'SIEM · detection · threat hunting', url: 'projects.html', x: -28, y: -35 },
+      { title: 'Digital forensics', detail: 'Artifacts · analysis · investigations', url: 'blogs.html#remote-access-note', x: -28, y: -125 },
+      { title: 'Networking', detail: 'Traffic analysis · infrastructure', url: 'blogs.html#nosignal-note', x: -28, y: -215 },
+      { title: 'Development', detail: 'Python · automation · tooling', url: 'projects.html', x: -28, y: -305 },
+      { title: 'Systems administration', detail: 'Endpoints · identity · cloud', url: 'experience.html', x: -65, y: -395 },
+    ];
+    const stage = visual.querySelector('.skills-stage');
+    const leader = visual.querySelector('.skills-leader');
+    const tooltip = visual.querySelector('[data-skill-tooltip]');
+    const status = visual.querySelector('[data-skills-status]');
+    const ROTATION_DELAY = 8000;
+    let index = 0, yaw = -35, timer = null, leaderFrame = null;
+    let visible = true, paused = motion.matches;
+    const title = visual.querySelector('[data-skill-title]');
+    const detail = visual.querySelector('[data-skill-detail]');
+    const link = visual.querySelector('[data-skill-link]');
+    visual.querySelector('.skills-selectors').hidden = false;
+    pause.hidden = false;
+    function drawLeader() {
+      const anchor = visual.querySelector(`[data-skill-face="${index}"][data-face-anchor]`);
+      const box = stage.getBoundingClientRect(), label = link.getBoundingClientRect(), face = anchor.getBoundingClientRect();
+      const x = face.left + face.width * .5 - box.left;
+      const y = face.top + face.height * .45 - box.top;
+      const startX = label.right - box.left - 8, startY = label.bottom - box.top;
+      leader.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+      leader.querySelector('path').setAttribute('d', `M${startX} ${startY}L${startX + 18} ${startY + 18}L${x} ${y}`);
+      leader.querySelector('circle').setAttribute('cx', x);
+      leader.querySelector('circle').setAttribute('cy', y);
     }
-  }
-  function addIntro() {
-    scrollAnimation?.cancel();
-    scrollAnimation = null;
-    historyEl.replaceChildren();
-    historyEl.style.transform = 'translateY(0)';
-    consoleEl.classList.remove('is-scrolling');
-    const intro = document.createElement('div');
-    intro.className = 'terminal-intro';
-    const start = document.createElement('p');
-    const dollar = document.createElement('span');
-    dollar.className = 'terminal-green';
-    dollar.textContent = '$';
-    start.append(dollar, ' ./explore.sh');
-    const loading = document.createElement('p');
-    loading.className = 'terminal-dim';
-    loadingDots = document.createElement('span');
-    loadingDots.className = 'loading-dots';
-    loadingDots.textContent = '...';
-    loading.append('Loading recent work', loadingDots);
-    intro.append(start, loading);
-    historyEl.append(intro);
-  }
-  function appendPrompt() {
-    const willTrim = historyEl.childElementCount >= MAX_TERMINAL_ENTRIES;
-    const anchor = historyEl.lastElementChild;
-    const anchorTop = willTrim ? anchor.getBoundingClientRect().top : 0;
-    const visibleY = willTrim ? historyEl.getBoundingClientRect().top - consoleEl.getBoundingClientRect().top : 0;
-    // IDs always identify the current prompt; older commands remain as plain history.
-    commandEl?.removeAttribute('id');
-    outputEl?.removeAttribute('id');
-    const entry = document.createElement('div');
-    entry.className = 'terminal-entry';
-    const prompt = document.createElement('p');
-    prompt.className = 'terminal-prompt';
-    const host = document.createElement('span');
-    host.className = 'terminal-green';
-    host.textContent = 'brandon@lab';
-    const path = document.createElement('span');
-    path.className = 'terminal-dim';
-    path.textContent = ':~$';
-    commandEl = document.createElement('span');
-    commandEl.id = 'terminal-command';
-    prompt.append(host, path, ' ', commandEl, cursorEl);
-    outputEl = document.createElement('pre');
-    outputEl.id = 'terminal-output';
-    entry.append(prompt, outputEl);
-    historyEl.append(entry);
-    // Entire groups are removed, including their output. No unbounded history array.
-    while (historyEl.childElementCount > MAX_TERMINAL_ENTRIES) historyEl.firstElementChild.remove();
-    if (willTrim) {
-      // Removing history changes layout even when the final scroll offset is unchanged.
-      // Rebase at the current visible position, then animate to the new bottom.
-      const removedHeight = anchorTop - anchor.getBoundingClientRect().top;
-      followLatest(visibleY + removedHeight);
-    } else followLatest();
-  }
-  function renderOutput(rows, follow = true) {
-    outputEl.replaceChildren();
-    rows.forEach(text => {
-      const line = document.createElement('span');
-      line.className = 'terminal-output-line';
-      line.textContent = text;
-      outputEl.append(line);
-    });
-    if (follow) followLatest();
-  }
-  function typeCommand() {
-    const item = sequence[index];
-    let char = 0;
-    function type() {
-      commandEl.textContent += item.command.charAt(char++);
-      followLatest();
-      if (char < item.command.length) schedule(type, 60);
-      else schedule(() => {
-        renderOutput(item.output, false);
-        index = (index + 1) % sequence.length;
-        appendPrompt();
-        schedule(typeCommand, 1750);
-      }, 240);
-    }
-    type();
-  }
-  function showStatic() {
-    cancelStep();
-    nameDecoder?.finish();
-    index = 0;
-    setStage('console');
-    addIntro();
-    appendPrompt();
-    commandEl.textContent = sequence[0].command;
-    renderOutput(sequence[0].output);
-  }
-  function startSession(finishName = true) {
-    cancelStep();
-    if (finishName) nameDecoder?.finish();
-    if (motion.matches) { showStatic(); return; }
-    index = 0;
-    setStage('console');
-    addIntro();
-    let dots = 1;
-    loadingDots.textContent = '.';
-    function load() {
-      if (dots < 3) {
-        loadingDots.textContent = '.'.repeat(++dots);
-        schedule(load, 340);
-      } else {
-        appendPrompt();
-        schedule(typeCommand, 350);
+    function followTurn() {
+      cancelAnimationFrame(leaderFrame);
+      const until = performance.now() + (motion.matches ? 0 : 1000);
+      function tick() {
+        drawLeader();
+        if (performance.now() < until) leaderFrame = requestAnimationFrame(tick);
+        else leaderFrame = null;
       }
+      tick();
     }
-    schedule(load, 340);
-  }
-  function startBoot() {
-    cancelStep();
-    if (motion.matches) { showStatic(); return; }
-    const nameRun = nameDecoder?.start();
-    bootLog.replaceChildren();
-    setStage('boot');
-    let service = 0;
-    function nextLine() {
-      const [code, text] = services[service++];
-      const line = document.createElement('div');
-      line.className = 'terminal-boot-line';
-      const status = document.createElement('span');
-      status.className = 'terminal-boot-status';
-      status.dataset.status = code;
-      const label = document.createElement('b');
-      label.textContent = code;
-      status.append('[ ', label, ' ]');
-      const message = document.createElement('span');
-      message.className = 'terminal-boot-message';
-      message.textContent = text;
-      line.append(status, message);
-      bootLog.append(line);
-      if (bootLog.childElementCount > 16) bootLog.firstElementChild.remove();
-      if (service < services.length) schedule(nextLine, BOOT_LINE_DELAY);
-      else schedule(() => {
-        nameDecoder?.finish(nameRun);
-        setStage('splash');
-        schedule(() => {
-          setStage('blank');
-          schedule(() => startSession(false), 320);
-        }, 2600);
-      }, BOOT_SETTLE_DELAY);
+    function show(next) {
+      index = next;
+      const area = areas[index];
+      visual.dataset.activeArea = String(index);
+      yaw = area.y + 360 * Math.round((yaw - area.y) / 360);
+      orbit.style.transform = `rotateX(${area.x}deg) rotateY(${yaw}deg)`;
+      title.textContent = area.title;
+      detail.textContent = area.detail;
+      link.href = area.url;
+      selectors.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+      tooltip.hidden = true;
+      followTurn();
     }
-    nextLine();
-  }
-  const expandButton = terminal.querySelector('[data-terminal-expand]');
-  const desktopTerminal = window.matchMedia('(min-width: 851px)');
-  let bounceAnimation = null;
-  terminal.querySelectorAll('[data-terminal-bounce]').forEach(button => {
-    button.addEventListener('click', () => {
-      bounceAnimation?.cancel();
-      bounceAnimation = null;
-      if (!motion.matches) bounceAnimation = terminal.animate([
-        { transform: 'translateY(0) scale(1)' },
-        { transform: 'translateY(-4px) scale(1.015)', offset: .35 },
-        { transform: 'translateY(1px) scale(.997)', offset: .72 },
-        { transform: 'translateY(0) scale(1)' },
-      ], { duration: 330, easing: 'ease-out' });
-    });
-  });
-  function syncExpansion() {
-    if (!expandButton) return;
-    if (!desktopTerminal.matches) terminal.classList.remove('terminal-expanded');
-    const expanded = terminal.classList.contains('terminal-expanded');
-    expandButton.disabled = !desktopTerminal.matches;
-    expandButton.setAttribute('aria-pressed', String(expanded));
-    expandButton.setAttribute('aria-label', expanded ? 'Restore terminal height' : 'Expand terminal height');
-    expandButton.title = desktopTerminal.matches ? (expanded ? 'Restore terminal height' : 'Expand terminal height') : 'Expand on desktop; mobile keeps a fixed height';
-  }
-  expandButton?.addEventListener('click', () => { terminal.classList.toggle('terminal-expanded'); syncExpansion(); });
-  desktopTerminal.addEventListener('change', syncExpansion);
-  syncExpansion();
-  const viewport = terminal.querySelector('.terminal-viewport');
-  if (viewport && typeof ResizeObserver === 'function') {
-    const viewportObserver = new ResizeObserver(() => { if (terminal.dataset.terminalStage === 'console') followLatest(); });
-    viewportObserver.observe(viewport);
-  }
-  terminalControl.hidden = motion.matches;
-  if (motion.matches || document.hidden) showStatic();
-  else startBoot();
-  terminalControl.addEventListener('click', () => {
-    if (terminal.dataset.terminalStage === 'console') startBoot();
-    else startSession();
-  });
-  motion.addEventListener('change', () => {
-    bounceAnimation?.cancel();
-    bounceAnimation = null;
-    terminalControl.hidden = motion.matches;
-    if (motion.matches) showStatic();
-    else startSession();
-  });
-  document.addEventListener('visibilitychange', () => {
-    terminal.classList.toggle('terminal-paused', document.hidden);
-    if (document.hidden) {
-      nameDecoder?.pause();
-      if (timer !== null) remaining = Math.max(0, deadline - performance.now());
+    function sync() {
       clearTimeout(timer);
       timer = null;
-    } else if (!motion.matches) {
-      nameDecoder?.resume();
-      if (nextStep) schedule(nextStep, remaining);
-      else startSession();
+      pause.setAttribute('aria-pressed', String(paused));
+      pause.setAttribute('aria-label', paused ? 'Start cube rotation' : 'Pause cube rotation');
+      pause.title = paused ? 'Start cube rotation' : 'Pause cube rotation';
+      pause.classList.toggle('is-paused', paused);
+      status.textContent = paused ? 'Rotation paused' : 'Auto rotation';
+      if (paused || document.hidden || !visible) return;
+      timer = setTimeout(() => { show((index + 1) % areas.length); sync(); }, ROTATION_DELAY);
     }
-  });
+    selectors.forEach((button, i) => button.addEventListener('click', () => { show(i); sync(); }));
+    pause.addEventListener('click', () => {
+      paused = !paused;
+      sync();
+    });
+    stage.addEventListener('pointermove', event => {
+      if (event.pointerType === 'touch') return;
+      const face = event.target.closest('[data-skill-face]');
+      if (!face || !face.querySelector('svg')) { tooltip.hidden = true; return; }
+      const areaIndex = Number(face.dataset.skillFace), area = areas[areaIndex];
+      tooltip.dataset.area = String(areaIndex);
+      tooltip.querySelector('strong').textContent = face.dataset.skillLabel || area.title;
+      tooltip.querySelector('span').textContent = face.dataset.skillExample || area.detail;
+      tooltip.hidden = false;
+      const bounds = tooltip.getBoundingClientRect();
+      const x = Math.max(8, Math.min(event.clientX + 20, innerWidth - bounds.width - 8));
+      const y = Math.max(8, Math.min(event.clientY + 18, innerHeight - bounds.height - 8));
+      tooltip.style.left = `${x}px`; tooltip.style.top = `${y}px`;
+    }, { passive: true });
+    stage.addEventListener('pointerleave', () => { tooltip.hidden = true; });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') tooltip.hidden = true; });
+    window.addEventListener('scroll', () => { tooltip.hidden = true; }, { passive: true });
+    document.addEventListener('visibilitychange', sync);
+    motion.addEventListener('change', () => { paused = motion.matches; sync(); });
+    if (typeof IntersectionObserver === 'function') {
+      new IntersectionObserver(entries => {
+        const next = entries[0].isIntersecting;
+        if (next !== visible) { visible = next; sync(); }
+      }).observe(stage);
+    }
+    if (typeof ResizeObserver === 'function') new ResizeObserver(drawLeader).observe(stage);
+    else window.addEventListener('resize', drawLeader);
+    window.addEventListener('pagehide', () => { clearTimeout(timer); cancelAnimationFrame(leaderFrame); });
+    window.addEventListener('pageshow', () => {
+      const box = stage.getBoundingClientRect();
+      visible = box.bottom > 0 && box.top < innerHeight;
+      drawLeader(); sync();
+    });
+    drawLeader();
+    sync();
+  })();
 })();
