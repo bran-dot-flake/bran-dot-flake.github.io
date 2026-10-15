@@ -1,5 +1,5 @@
 window.PORTFOLIO_NOTES = {
-  "updatedAt": "2026-10-15T18:44:06+00:00",
+  "updatedAt": "2026-10-15T18:50:49+00:00",
   "notes": [
     {
       "id": "support-note",
