@@ -1,10 +1,20 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-10-14T15:14:01+00:00",
+  "updatedAt": "2026-10-15T15:07:12+00:00",
   "sourceCheckedAt": {
-    "github": "2026-10-14T15:14:01+00:00",
-    "htb": "2026-10-14T15:14:01+00:00"
+    "github": "2026-10-15T15:07:12+00:00",
+    "htb": "2026-10-15T15:07:12+00:00"
   },
   "items": [
+    {
+      "id": "github:Support-Hack-The-Box-Writeup",
+      "source": "github",
+      "action": "built",
+      "title": "Support",
+      "detail": "Exploiting exposed SMB shares and hardcoded credentials for initial access, followed by Active Directory enumeration and Kerberos resource-based constrained delegation.",
+      "url": "https://github.com/bran-dot-flake/Support-Hack-The-Box-Writeup",
+      "date": "2026-10-15T14:56:19+00:00",
+      "workKey": "support"
+    },
     {
       "id": "htb:sherlock:1626",
       "source": "htb",
@@ -134,16 +144,6 @@ window.PORTFOLIO_ACTIVITY = {
       "url": "https://app.hackthebox.com/users/3476736",
       "date": "2026-08-06T16:11:44+00:00",
       "workKey": "brutus"
-    },
-    {
-      "id": "htb:root:144",
-      "source": "htb",
-      "action": "completed",
-      "title": "Jerry",
-      "detail": "Hack The Box machine · system owned",
-      "url": "https://app.hackthebox.com/users/3476736",
-      "date": "2026-08-06T14:09:15+00:00",
-      "workKey": "jerry"
     },
     {
       "id": "github:Automated-SOC-Pipeline-Using-Wazuh-Shuffle-and-TheHive",
