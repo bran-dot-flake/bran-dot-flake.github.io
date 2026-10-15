@@ -103,7 +103,7 @@ def github_data(repositories):
         url = f'https://github.com/{user}/{name}'
         date = iso_date(repo['pushed_at'])
         metadata = CONFIG['notes'].get(name) or auto_note(repo)
-        description = repo.get('description') or ''
+        description = (metadata or {}).get('description') or repo.get('description') or ''
         if metadata:
             notes.append({**metadata, 'url': url, 'description': description, 'updatedAt': date, 'repository': name})
         created = iso_date(repo['created_at'])

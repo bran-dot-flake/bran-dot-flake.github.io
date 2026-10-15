@@ -118,7 +118,7 @@
     cursor.className = 'pixel-pointer';
     cursor.alt = '';
     cursor.setAttribute('aria-hidden', 'true');
-    cursor.width = cursor.height = 20;
+    cursor.width = cursor.height = 24;
     cursor.hidden = true;
     document.body.append(cursor);
     Object.values(designs).forEach(([src]) => { const preload = new Image(); preload.src = src; });
@@ -140,7 +140,7 @@
       else if (target.closest('p,h1:not(#hero-title),h2,h3,.responsibility-label,.responsibility-tools span,input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]),textarea,[contenteditable="true"]')) nextKind = 'text';
       const [src, x, y] = designs[nextKind];
       if (nextKind !== kind) { kind = nextKind; cursor.src = src; cursor.dataset.cursorKind = kind; }
-      cursor.style.transform = `translate3d(${point.x - x}px,${point.y - y}px,0)`;
+      cursor.style.transform = `translate3d(${point.x - x * 1.2}px,${point.y - y * 1.2}px,0)`;
       if (cursor.complete && cursor.naturalWidth) {
         cursor.hidden = false;
         root.classList.add('pixel-pointer-active');
@@ -336,7 +336,7 @@
     const leader = visual.querySelector('.skills-leader');
     const tooltip = visual.querySelector('[data-skill-tooltip]');
     const status = visual.querySelector('[data-skills-status]');
-    const ROTATION_DELAY = 8000;
+    const ROTATION_DELAY = 6300;
     let index = 0, yaw = -35, timer = null, leaderFrame = null;
     let visible = true, paused = motion.matches;
     const title = visual.querySelector('[data-skill-title]');
