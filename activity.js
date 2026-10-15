@@ -1,18 +1,18 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-10-15T15:07:12+00:00",
+  "updatedAt": "2026-10-15T18:44:06+00:00",
   "sourceCheckedAt": {
-    "github": "2026-10-15T15:07:12+00:00",
-    "htb": "2026-10-15T15:07:12+00:00"
+    "github": "2026-10-15T18:44:06+00:00",
+    "htb": "2026-10-15T18:44:06+00:00"
   },
   "items": [
     {
       "id": "github:Support-Hack-The-Box-Writeup",
       "source": "github",
-      "action": "built",
+      "action": "wrote up",
       "title": "Support",
-      "detail": "Exploiting exposed SMB shares and hardcoded credentials for initial access, followed by Active Directory enumeration and Kerberos resource-based constrained delegation.",
+      "detail": "Recovering LDAP credentials from a .NET application, mapping AD permissions with BloodHound, and using RBCD and Kerberos service tickets to reach SYSTEM.",
       "url": "https://github.com/bran-dot-flake/Support-Hack-The-Box-Writeup",
-      "date": "2026-10-15T14:56:19+00:00",
+      "date": "2026-10-15T17:08:56+00:00",
       "workKey": "support"
     },
     {

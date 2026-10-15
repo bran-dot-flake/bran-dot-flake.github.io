@@ -1,5 +1,5 @@
 window.PORTFOLIO_NOTES = {
-  "updatedAt": "2026-10-15T18:15:48.456Z",
+  "updatedAt": "2026-10-15T18:44:06+00:00",
   "notes": [
     {
       "id": "support-note",
@@ -22,9 +22,9 @@ window.PORTFOLIO_NOTES = {
         "RBCD",
         "Hack The Box"
       ],
-      "url": "https://github.com/bran-dot-flake/Support-Hack-The-Box-Writeup",
       "description": "Recovering LDAP credentials from a .NET application, mapping AD permissions with BloodHound, and using RBCD and Kerberos service tickets to reach SYSTEM.",
-      "updatedAt": "2026-10-15T18:05:37+00:00",
+      "url": "https://github.com/bran-dot-flake/Support-Hack-The-Box-Writeup",
+      "updatedAt": "2026-10-15T17:08:56+00:00",
       "repository": "Support-Hack-The-Box-Writeup"
     },
     {
