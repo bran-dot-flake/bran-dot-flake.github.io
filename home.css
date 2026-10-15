@@ -1,0 +1,141 @@
+/* Homepage layout; shared styles and the other portfolio pages stay unchanged. */
+.welcome-page{--home-border:#343543}
+.welcome-page main{margin-left:220px}
+.home-hero{position:relative;max-width:1140px;margin:auto;padding:40px 40px 32px}
+.home-hero .terminal-text{margin:0 0 14px;font:13px/1.6 var(--mono);color:var(--dim)}
+.home-hero .terminal-text span{color:var(--cyan)}
+.home-hero h1{font:760 clamp(42px,6.4vw,80px)/1.12 var(--sans);letter-spacing:-3.6px;white-space:nowrap;margin:0 0 20px}
+.home-hero .surname{color:var(--accent)}
+.home-hero .hero-description{font:13px/1.85 var(--mono);color:var(--muted);max-width:740px;margin:0;padding-left:19px}
+.home-hero .hero-actions{margin-top:21px;gap:14px}
+.home-hero .button{padding:13px 21px}
+.explore-link{display:inline-flex;align-items:center;gap:12px;margin-top:24px;font:10px/1.6 var(--mono);letter-spacing:1.3px;text-decoration:none;color:var(--dim)}
+.explore-link:hover{color:var(--accent)}
+.explore-link svg{width:15px;height:15px;animation:explore-nudge 3s ease-in-out infinite}
+@keyframes explore-nudge{0%,60%,100%{transform:translateY(0)}75%{transform:translateY(4px)}}
+.welcome-page .hero-activity{max-width:460px;margin-top:27px;padding:0;border:0;background:none}
+.welcome-page .hero-activity h2{font:500 9px/1.6 var(--mono);letter-spacing:1.4px;color:var(--accent);margin:0 0 11px}
+.welcome-page .recent-actions{list-style:none;position:relative;display:grid;gap:9px;margin:0;padding:0 0 0 22px}
+.welcome-page .recent-actions::before{content:"";position:absolute;left:5px;top:7px;bottom:7px;width:1px;background:color-mix(in srgb,var(--accent) 23%,transparent)}
+.welcome-page .recent-action{position:relative;display:flex;align-items:baseline;gap:14px;min-width:0;font:10px/1.8 var(--mono);padding:0;border:0}
+.welcome-page .recent-action::before{content:"";position:absolute;left:-20px;top:5px;width:8px;height:8px;background:var(--bg);border:2px solid color-mix(in srgb,var(--accent) 46%,var(--bg));border-radius:50%}
+.welcome-page .recent-action:first-child::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 9px color-mix(in srgb,var(--accent) 65%,transparent)}
+.welcome-page .recent-action a{color:var(--muted);text-decoration:none;min-width:0;white-space:normal;overflow-wrap:anywhere}
+.activity-action{color:var(--muted)}
+.activity-item-title{color:var(--accent)}
+.welcome-page .recent-action a:hover .activity-item-title{text-decoration:underline}
+.welcome-page .recent-action time{font:8px/1.8 var(--mono);color:var(--dim);flex-shrink:0;white-space:nowrap}
+.home-content{max-width:1140px;margin:auto;padding:0 40px}
+.intro-card{--card-accent:var(--accent);display:grid;grid-template-columns:1fr 1fr;min-height:340px;overflow:hidden;border:1px solid var(--home-border);border-radius:7px;text-decoration:none;transition:border-color .2s,transform .2s;background:var(--surface);position:relative}
+ a.intro-card.is-hovered{border-color:var(--card-accent);transform:translateY(-2px)}
+.intro-card:focus-visible{outline:2px solid var(--card-accent);outline-offset:5px}
+.intro-card .card-art{display:flex;align-items:center;justify-content:center;position:relative;min-width:0;overflow:hidden;background:color-mix(in srgb,var(--card-accent) 4%,var(--bg));padding:28px}
+.intro-card .card-copy{padding:48px 45px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;position:relative}
+.card-index{font:10px/1.6 var(--mono);letter-spacing:1.4px;color:var(--card-accent);margin:0 0 18px}
+.intro-card h2{font-size:29px;line-height:1.22;letter-spacing:-.8px;margin:0 0 18px;font-weight:630}
+.intro-card .card-description{font-size:15px;line-height:1.85;color:var(--muted);margin:0 0 13px}
+.card-link{display:inline-flex;align-items:center;gap:14px;font:11px/1.6 var(--mono);color:var(--card-accent);margin-top:18px;text-decoration:none}
+.card-link svg{width:16px;height:16px;transition:transform .2s}
+.card-link:hover svg,a.intro-card.is-hovered .card-link svg{transform:translateX(4px)}
+.experience-intro{--card-accent:var(--cyan);min-height:425px}
+.experience-intro .card-art{padding:14px}
+.welcome-page .skills-visual{--cubie-size:54px;--cubie-half:27px;--cubie-step:60px;width:100%;max-width:100%;border:0;border-radius:0;background:transparent}
+.welcome-page .skills-stage{height:330px}
+.welcome-page .skills-visual-header{height:36px;padding:8px 10px;font-size:8px}
+.welcome-page .skills-caption{height:35px;padding:6px 10px}
+.welcome-page .skills-callout{left:10px;width:195px;padding:10px 24px 10px 11px}
+.welcome-page .skills-callout-title{font-size:9px}
+.welcome-page .skills-callout-detail{font-size:8px}
+.practice-intro{--card-accent:#e6c178;margin-top:28px;min-height:390px}
+.practice-intro .card-copy{order:0}
+.practice-dashboard{width:100%;max-width:440px;padding:23px 22px 17px;border:1px solid var(--line);border-radius:5px;background:var(--bg);box-shadow:10px 10px 0 color-mix(in srgb,var(--card-accent) 4%,transparent)}
+.practice-dashboard-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;font:8px/1.6 var(--mono);letter-spacing:1px;color:var(--dim);margin-bottom:20px}
+.practice-entries{display:grid;gap:17px}
+.practice-entry{display:grid;grid-template-columns:minmax(125px,1.65fr) minmax(42px,.65fr) minmax(42px,.65fr) 14px;gap:9px;align-items:center;min-width:0}
+.practice-entry-name{display:flex;align-items:center;gap:9px;min-width:0}
+.practice-entry-name>img{width:25px;height:25px;object-fit:cover;flex-shrink:0;border-radius:3px}
+.practice-entry-name>div{min-width:0}
+.practice-entry h3{font-size:12px;line-height:1.45;font-weight:600;color:var(--text);margin:0 0 5px}
+.practice-entry-tags{display:flex;flex-wrap:wrap;gap:3px 5px}
+.practice-entry-tags span{font:7px/1.5 var(--mono);color:var(--tone);border:1px solid color-mix(in srgb,var(--tone) 20%,var(--line));border-radius:2px;padding:1px 4px}
+.practice-entry-metric{align-self:center;min-width:0}
+.practice-entry-metric strong{display:block;color:var(--text);font:600 21px/1.2 var(--mono);margin-bottom:4px}
+.practice-entry-metric>span{display:block;color:var(--dim);font:9px/1.5 var(--sans);min-height:14px;white-space:nowrap}
+.practice-profile{align-self:center;font:13px/1 var(--mono);color:var(--tone);text-decoration:none;padding:5px 0}
+.practice-profile:hover{color:var(--text)}
+.practice-entry .stat-progress{display:none}
+.welcome-page .practice-dashboard .activity-monitor{border:0;border-radius:0;background:transparent;margin:18px 0 0;padding:0;height:81px;min-width:0;overflow:hidden}
+.practice-dashboard .activity-monitor figcaption{font-size:8px}
+.practice-dashboard .activity-plot{height:56px;width:100%}
+.projects-intro{--card-accent:var(--accent);margin-top:28px}
+.projects-intro .card-copy{order:0}
+.blogs-intro{--card-accent:var(--pink);margin-top:28px}
+.blogs-intro .card-copy{order:-1}
+.notes-art{width:100%;max-width:380px;padding:26px;border:1px solid var(--line);border-radius:5px;background:var(--bg);box-shadow:10px 10px 0 color-mix(in srgb,var(--card-accent) 4%,transparent)}
+.notes-top{display:flex;justify-content:space-between;font:9px/1.6 var(--mono);letter-spacing:1px;color:var(--dim);margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.note-label{font:10px/1.6 var(--mono);color:var(--card-accent);margin-bottom:10px}
+.note-title{font-size:21px;line-height:1.3;letter-spacing:-.5px;color:var(--text);margin-bottom:20px;max-width:285px}
+.notes-line{display:block;height:4px;margin:10px 0;background:var(--line);border-radius:1px}
+.notes-line:nth-of-type(2){width:89%}
+.notes-line:nth-of-type(3){width:72%}
+.notes-steps{display:flex;flex-wrap:wrap;gap:6px;margin-top:25px}
+.notes-steps span{border:1px solid var(--line);padding:4px 7px;border-radius:3px;font:8px/1.5 var(--mono);color:var(--muted)}
+.notes-steps span:last-child{color:var(--card-accent)}
+.home-credentials{padding:43px 0 0}
+.home-credentials .section-heading{margin-bottom:23px;gap:20px}
+.home-credentials .section-heading .eyebrow{font-size:9px}
+.home-credentials .section-heading h2{font-size:30px;letter-spacing:-.8px}
+.home-credentials .section-heading p:not(.eyebrow){font-size:14px}
+.home-credentials .section-link{font-size:12px}
+.home-credentials .cert-preview-grid{gap:13px}
+.home-credentials .cert-preview{padding:22px 16px;gap:14px;border-radius:7px}
+.home-credentials .cert-monogram.small{width:62px;height:62px;flex-basis:62px}
+.home-credentials .cert-preview h3{font-size:20px}
+.home-credentials .card-category{font-size:9px}
+.home-credentials .status{font-size:9px}
+.about-intro{--card-accent:var(--green);margin-top:31px;min-height:400px}
+.about-intro .card-copy{order:0}
+.about-intro .card-art{padding:0;min-height:400px}
+.home-portrait{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+.photo-note{position:absolute;bottom:18px;right:18px;background:#0a0b10da;border:1px solid #ffffff25;padding:8px 12px;border-radius:3px;font:9px/1.6 var(--mono);letter-spacing:.8px;color:#f3f2f8}
+.welcome-page .contact-section{padding:42px 0 49px}
+.welcome-page .contact-box{border-radius:7px;padding:36px}
+.welcome-page .contact-box h2{font-size:36px;letter-spacing:-1px}
+.welcome-page .contact-box .eyebrow{font-size:10px}
+.welcome-page .contact-box p:not(.eyebrow){font-size:14px}
+.welcome-page .site-footer{padding:23px 0 26px;max-width:none;margin:0;border-top:1px solid var(--line);font-size:10px;gap:20px}
+:root[data-theme="light"] .welcome-page{--home-border:#d7d5e5}
+@media(max-width:1100px){.home-hero{padding-left:28px;padding-right:28px}.home-content{padding-left:28px;padding-right:28px}.intro-card .card-copy{padding:35px 30px}.intro-card h2{font-size:26px}.intro-card .card-description{font-size:14px}.practice-dashboard{padding:21px 19px 16px}.practice-entry{grid-template-columns:minmax(115px,1.65fr) minmax(40px,.65fr) minmax(40px,.65fr) 13px;gap:8px}.practice-entry-metric>span{font-size:8px}.home-credentials .cert-preview{padding:18px 12px;gap:10px}.home-credentials .cert-monogram.small{width:49px;height:49px;flex-basis:49px}.home-credentials .cert-preview h3{font-size:17px}}
+@media(max-width:1100px) and (min-width:851px){.practice-intro{grid-template-columns:1fr}.practice-intro .card-copy{padding-bottom:28px}.practice-intro .card-art{padding:28px}.home-credentials .cert-preview-grid{grid-template-columns:1fr}.home-credentials .cert-preview{padding:20px}.home-credentials .cert-monogram.small{width:58px;height:58px;flex-basis:58px}.home-credentials .cert-preview>div:last-child{display:grid;grid-template-columns:1fr auto;width:100%;gap:3px 20px}.home-credentials .card-category{grid-column:1/-1}}
+@media(max-width:850px){.welcome-page main{margin-left:0}.home-hero{padding-top:35px}.home-hero h1{font-size:clamp(42px,8.5vw,70px);letter-spacing:-2.7px}.home-credentials .cert-preview-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.home-credentials .cert-preview>div:last-child{display:block;width:auto}.home-credentials .cert-preview h3{margin-bottom:7px}}
+@media(max-width:760px){.home-hero{padding:34px 22px 32px}.home-content{padding:0 22px}.home-hero h1{font-size:clamp(34px,8.1vw,60px);letter-spacing:-2.2px}.home-hero .hero-description{font-size:11px;line-height:1.85;padding-left:15px}.home-hero .hero-actions{margin-top:20px}.home-hero .button{font-size:13px;padding:12px 17px}.welcome-page .hero-activity{margin-top:24px}.intro-card{grid-template-columns:1fr;min-height:0}.intro-card .card-art{min-height:290px}.experience-intro .card-art{padding:12px;min-height:370px}.welcome-page .skills-visual{--cubie-size:52px;--cubie-half:26px;--cubie-step:58px}.welcome-page .skills-stage{height:310px}.intro-card .card-copy{order:1;padding:32px 27px}.intro-card h2{font-size:27px}.card-index{margin-bottom:12px}.practice-intro .card-copy{order:0}.practice-intro .card-art{padding:27px;min-height:0}.practice-dashboard{max-width:440px;padding:22px}.practice-entry{grid-template-columns:minmax(125px,1.65fr) minmax(45px,.65fr) minmax(45px,.65fr) 14px;gap:9px}.practice-entry-metric>span{font-size:9px}.projects-intro,.blogs-intro{margin-top:22px}.about-intro .card-art{height:340px;min-height:340px}.home-credentials .section-heading{align-items:flex-start;flex-direction:column;gap:12px}.home-credentials .cert-preview-grid{grid-template-columns:1fr}.home-credentials .cert-preview{padding:20px}.home-credentials .cert-monogram.small{width:60px;height:60px;flex-basis:60px}.home-credentials .cert-preview>div:last-child{display:grid;grid-template-columns:1fr auto;width:100%;gap:4px 18px}.home-credentials .card-category{grid-column:1/-1}.home-credentials .cert-preview h3{font-size:20px;margin:0}.home-credentials .status{font-size:10px}.welcome-page .contact-box{padding:29px 25px}.welcome-page .contact-box h2{font-size:32px}.welcome-page .site-footer{flex-wrap:wrap}}
+@media(max-width:480px){.practice-intro .card-art{padding:21px 18px}.practice-dashboard{padding:19px 16px 13px}.practice-entry{grid-template-columns:minmax(105px,1.55fr) minmax(39px,.65fr) minmax(39px,.65fr) 12px;gap:7px}.practice-entry-name{gap:7px}.practice-entry-name>img{width:22px;height:22px}.practice-entry h3{font-size:11px}.practice-entry-tags span{font-size:6px;padding:1px 3px}.practice-entry-metric strong{font-size:19px}.practice-entry-metric>span{font-size:8px;letter-spacing:-.15px}.practice-dashboard-heading{font-size:7px;margin-bottom:18px}}
+@media(max-width:410px){.home-hero{padding-left:20px;padding-right:20px}.home-content{padding-left:16px;padding-right:16px}.home-hero h1{font-size:clamp(28px,8.4vw,34px);letter-spacing:-1.9px}.intro-card .card-copy{padding:28px 22px}.intro-card h2{font-size:25px}.welcome-page .recent-action{font-size:9px;gap:10px}.welcome-page .recent-action time{font-size:7px}.welcome-page .skills-visual{--cubie-size:46px;--cubie-half:23px;--cubie-step:51px}.welcome-page .skills-stage{height:300px}.welcome-page .skills-callout{width:177px}}
+@media(max-width:360px){.practice-dashboard{padding:17px 13px 12px}.practice-entry{grid-template-columns:minmax(96px,1.55fr) minmax(38px,.65fr) minmax(38px,.65fr) 10px;gap:5px}.practice-entry-name>img{display:none}.practice-entry-metric>span{font-size:7px;letter-spacing:-.1px}.practice-dashboard .activity-monitor figcaption span:last-child{display:none}}
+@media(prefers-reduced-motion:reduce){.explore-link svg{animation:none}.intro-card,.card-link svg{transition:none}a.intro-card.is-hovered{transform:none}}
+
+/* A side activity box and consistent actions for all story cards. */
+.home-hero-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;align-items:center;gap:32px}
+.home-hero-layout .home-hero-copy h1{font-size:clamp(42px,calc(6.2vw - 10px),78px)}
+.home-hero-side .hero-activity{margin:0;max-width:none;padding:24px 22px;border:1px solid var(--line);border-radius:7px;background:linear-gradient(140deg,#cba5ff07,transparent 75%),var(--surface)}
+.home-hero-side .recent-action{font-size:9px;gap:9px}
+.home-hero-side .recent-actions{gap:14px}
+.home-hero-side .recent-action time{font-size:7px}
+.home-hero .explore-link{margin-top:29px}
+.intro-card[data-card-href]{cursor:pointer}
+.intro-card[data-card-href].is-hovered.is-hovered{border-color:var(--card-accent)}
+.intro-card[data-card-href].is-hovered.is-hovered{transform:translateY(-2px)}
+.intro-card[data-card-href].is-hovered{transform:none}
+.intro-card h2,.home-credentials .section-heading h2,.welcome-page .contact-box h2{font-weight:700}
+.practice-dashboard-heading>span:first-child,.practice-dashboard .activity-monitor figcaption>span:first-child{color:var(--card-accent)}
+:root[data-theme="light"] .practice-intro{--card-accent:#94600a}
+@media(max-width:1200px){.home-hero-layout{grid-template-columns:1fr;gap:25px}.home-hero-layout .home-hero-copy h1{font-size:clamp(42px,6.4vw,78px)}.home-hero-side{max-width:460px}.home-hero-side .hero-activity{padding:22px}.home-hero-side .recent-action{font-size:10px}.home-hero-side .recent-action time{font-size:8px}}
+@media(max-width:850px){.home-hero-layout .home-hero-copy h1{font-size:clamp(42px,8.5vw,70px)}}
+@media(max-width:760px){.home-hero-layout{gap:23px}.home-hero-layout .home-hero-copy h1{font-size:clamp(34px,8.1vw,60px)}.home-hero-side{width:100%;max-width:460px}}
+@media(max-width:410px){.home-hero-layout .home-hero-copy h1{font-size:clamp(28px,8.4vw,34px)}.home-hero-side .hero-activity{padding:20px 18px}.home-hero-side .recent-action{font-size:9px}.home-hero-side .recent-action time{font-size:7px}}
+@media(prefers-reduced-motion:reduce){.intro-card[data-card-href].is-hovered.is-hovered{transform:none}}
+
+.welcome-page .cert-preview.is-hovered{border-color:var(--tone);transform:translateY(-3px)}
+.welcome-page .cert-preview:hover:not(.is-hovered){border-color:var(--line);transform:none}
+.intro-card[data-card-href="practice.html"].is-hovered{transform:translateY(-2px)}
+@media(prefers-reduced-motion:reduce){.welcome-page .cert-preview.is-hovered,.intro-card[data-card-href="practice.html"].is-hovered{transform:none}}

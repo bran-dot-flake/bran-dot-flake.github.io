@@ -1,6 +1,32 @@
 window.PORTFOLIO_NOTES = {
-  "updatedAt": "2026-10-15T15:07:12+00:00",
+  "updatedAt": "2026-10-15T18:15:48.456Z",
   "notes": [
+    {
+      "id": "support-note",
+      "title": "Support: from SMB to SYSTEM",
+      "activityTitle": "Support",
+      "group": "Active Directory",
+      "topics": [
+        "SMB / LDAP",
+        ".NET reversing",
+        "BloodHound",
+        "Kerberos",
+        "RBCD",
+        "Impacket"
+      ],
+      "category": "HACK THE BOX / MACHINE · ACTIVE DIRECTORY",
+      "image": "assets/support.svg",
+      "tags": [
+        "Active Directory",
+        "BloodHound",
+        "RBCD",
+        "Hack The Box"
+      ],
+      "url": "https://github.com/bran-dot-flake/Support-Hack-The-Box-Writeup",
+      "description": "Recovering LDAP credentials from a .NET application, mapping AD permissions with BloodHound, and using RBCD and Kerberos service tickets to reach SYSTEM.",
+      "updatedAt": "2026-10-15T18:05:37+00:00",
+      "repository": "Support-Hack-The-Box-Writeup"
+    },
     {
       "id": "nosignal-note",
       "title": "NoSignal: following the CCTV traffic",
