@@ -45,7 +45,7 @@ jobs:
       - name: Prepare static site
         run: |
           mkdir _site
-          cp *.html *.js style.css CNAME _site/
+          cp *.html *.js *.css CNAME _site/
           cp -R assets _site/assets
       - uses: actions/upload-pages-artifact@v4
         with:
