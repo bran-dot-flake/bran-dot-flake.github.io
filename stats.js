@@ -6,11 +6,11 @@ window.PORTFOLIO_STATS = {
     ],
     "profile": {
       "grade": 1,
-      "image": "assets/htb-rank-reference.png",
+      "image": "https://htb-experience-prod-public-storage.s3.amazonaws.com/assets/ranks/svg/rank_professional.svg",
       "level": 46,
-      "source": "screenshot",
+      "source": "public-profile",
       "title": "Professional",
-      "updatedAt": "2026-10-16T18:38:41+00:00",
+      "updatedAt": "2026-10-16T19:00:22+00:00",
       "xp": 392,
       "xpTotal": 1163
     },

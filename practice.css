@@ -96,7 +96,6 @@
 .htb-rank{display:flex;align-items:center;gap:14px;margin:0 0 15px;padding:11px 14px;border:1px solid var(--line);border-radius:5px;background:var(--bg)}
 .htb-rank-badge{display:block;position:relative;width:70px;height:60px;overflow:hidden;flex-shrink:0}
 .htb-rank-badge>img{display:block;width:70px;height:60px;object-fit:contain}
-.htb-rank-badge.snapshot-badge>img{position:absolute;max-width:none;width:160.55px;height:179.62px;left:-50.64px;top:-19.36px}
 .htb-rank-details{flex:1;min-width:0}
 .htb-rank-details>p{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 8px}
 .htb-rank-details strong{font:600 14px/1.4 var(--sans);color:var(--text)}
