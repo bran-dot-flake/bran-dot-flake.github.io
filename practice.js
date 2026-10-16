@@ -8,7 +8,7 @@
     try {
       const url = new URL(value, location.href);
       if (url.protocol !== 'https:' && url.origin !== location.origin) return null;
-      if (image && url.origin !== location.origin && !['cdn.services-k8s.prod.aws.htb.systems', 'labs.hackthebox.com', 'app.hackthebox.com', 'account.hackthebox.com', 'profile.hackthebox.com', 'assets.hackthebox.com'].includes(url.hostname)) return null;
+      if (image && url.origin !== location.origin && !['cdn.services-k8s.prod.aws.htb.systems', 'labs.hackthebox.com', 'app.hackthebox.com', 'account.hackthebox.com', 'profile.hackthebox.com', 'assets.hackthebox.com', 'htb-experience-prod-public-storage.s3.amazonaws.com'].includes(url.hostname)) return null;
       return url.href;
     } catch (_) { return null; }
   }
@@ -45,7 +45,6 @@
       rank.querySelector('[data-htb-level]').textContent = profile.level;
       const image = rank.querySelector('[data-htb-rank-image]');
       const imageUrl = safeUrl(profile.image, true);
-      image.closest('.htb-rank-badge').classList.toggle('snapshot-badge', profile.source === 'screenshot');
       if (imageUrl) { image.src = imageUrl; image.alt = `HTB ${profile.title} rank badge`; }
       image.addEventListener('error', () => { image.hidden = true; }, { once: true });
       const xp = rank.querySelector('[data-htb-xp]');
