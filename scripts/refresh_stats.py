@@ -83,7 +83,7 @@ def htb_profile(raw):
     image = profile.get("rankImage")
     parsed = urlparse(image) if isinstance(image, str) else None
     if (not parsed or parsed.scheme != "https" or parsed.username or parsed.password
-            or parsed.hostname not in {"cdn.services-k8s.prod.aws.htb.systems", "labs.hackthebox.com", "app.hackthebox.com", "account.hackthebox.com", "profile.hackthebox.com", "assets.hackthebox.com"}):
+            or parsed.hostname not in {"cdn.services-k8s.prod.aws.htb.systems", "labs.hackthebox.com", "app.hackthebox.com", "account.hackthebox.com", "profile.hackthebox.com", "assets.hackthebox.com", "htb-experience-prod-public-storage.s3.amazonaws.com"}):
         raise ValueError("Unrecognized HTB badge URL")
     earned = count(profile.get("levelExperiencePoints"))
     remaining = count(profile.get("experienceUntilNextLevel"))
