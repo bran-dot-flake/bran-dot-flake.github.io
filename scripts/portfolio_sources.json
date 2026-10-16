@@ -134,6 +134,29 @@
         "Hack The Box"
       ],
       "description": "Recovering LDAP credentials from a .NET application, mapping AD permissions with BloodHound, and using RBCD and Kerberos service tickets to reach SYSTEM."
+    },
+    "Bedside-Hack-The-Box-Writeup": {
+      "id": "bedside-note",
+      "title": "Bedside: from PDF processing to root",
+      "activityTitle": "Bedside",
+      "group": "Offensive security",
+      "topics": [
+        "PDFMiner",
+        "Docker",
+        "Path traversal",
+        "PyTorch",
+        "Deserialization",
+        "Linux"
+      ],
+      "category": "HACK THE BOX / MACHINE · LINUX",
+      "image": "assets/bedside.svg",
+      "tags": [
+        "PDFMiner",
+        "Docker",
+        "PyTorch",
+        "Hack The Box"
+      ],
+      "description": "Exploiting a PDFMiner file-processing vulnerability, pivoting through an internal development server, and abusing an unsafe PyTorch checkpoint."
     }
   }
 }

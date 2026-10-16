@@ -62,7 +62,9 @@ def readable(name):
 
 def auto_note(repo):
     topics = set(repo.get('topics', []))
-    if not topics.intersection({'hackthebox-sherlocks', 'hackthebox-machine', 'writeup'}):
+    # A writeup remains a writeup even before GitHub topics are added.
+    named_writeup = bool(re.search(r'[-_]Hack[-_]The[-_]Box[-_]Writeup$', repo.get('name', ''), re.I))
+    if not named_writeup and not topics.intersection({'hackthebox-sherlocks', 'hackthebox-machine', 'writeup'}):
         return None
     group = 'Digital forensics'
     if 'threat-hunting' in topics:
@@ -158,6 +160,17 @@ def render_fallbacks(activity, notes):
         label = item['action'][:1].upper() + item['action'][1:] + ' ' + item['title'] + kind
         link_attrs = f'href="{escape(item["url"])}" target="_blank" rel="noopener noreferrer"'
         rows.append(f'<li class="recent-action"><a {link_attrs} title="{escape(label + " · " + item.get("detail", ""))}">{escape(label)}</a><time datetime="{escape(item["date"])}" title="{escape(date.strftime("%b %d, %Y %I:%M %p"))} ET">{stamp}</time></li>')
+    practice_path = ROOT / 'practice.html'
+    practice_source = practice_path.read_text()
+    recent = activity.get('htbRecent', [item for item in activity.get('items', []) if item.get('source') == 'htb'])
+    links = []
+    for kind in ('machine', 'Sherlock'):
+        matches = [item for item in recent if kind in item.get('detail', '')][:2]
+        for item in matches:
+            links.append(f'<a href="{escape(item["url"])}" target="_blank" rel="noopener noreferrer">{escape(item["title"])}<small>{kind}</small></a>')
+    if links:
+        practice_source = re.sub(r'(<div data-htb-recent>).*?(</div>)', lambda match: match[1] + ''.join(links) + match[2], practice_source, count=1, flags=re.S)
+        practice_path.write_text(practice_source)
     path = ROOT / 'index.html'
     source = path.read_text()
     start = source.index('<ul class="recent-actions" data-recent-actions>')
@@ -186,6 +199,9 @@ def refresh():
     try:
         new_items = htb_items(fetch_json(f"https://labs.hackthebox.com/api/v5/user/profile/activity/{CONFIG['htbUserId']}"))
         items = [item for item in items if item.get('source') != 'htb'] + new_items
+        # Keep completions before cross-source deduplication: a newer GitHub
+        # writeup should not hide a solved lab from the Practice dashboard.
+        activity['htbRecent'] = sorted(new_items, key=lambda item: item['date'], reverse=True)[:20]
         activity.setdefault('sourceCheckedAt', {})['htb'] = now
         successful = True
         print(f'htb: refreshed {len(new_items)} public completions')
