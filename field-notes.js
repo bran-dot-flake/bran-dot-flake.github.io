@@ -1,6 +1,32 @@
 window.PORTFOLIO_NOTES = {
-  "updatedAt": "2026-10-16T14:55:38+00:00",
+  "updatedAt": "2026-10-16T18:51:23+00:00",
   "notes": [
+    {
+      "id": "bedside-note",
+      "title": "Bedside: from PDF processing to root",
+      "activityTitle": "Bedside",
+      "group": "Offensive security",
+      "topics": [
+        "PDFMiner",
+        "Docker",
+        "Path traversal",
+        "PyTorch",
+        "Deserialization",
+        "Linux"
+      ],
+      "category": "HACK THE BOX / MACHINE · LINUX",
+      "image": "assets/bedside.svg",
+      "tags": [
+        "PDFMiner",
+        "Docker",
+        "PyTorch",
+        "Hack The Box"
+      ],
+      "description": "Exploiting a PDFMiner file-processing vulnerability, pivoting through an internal development server, and abusing an unsafe PyTorch checkpoint.",
+      "url": "https://github.com/bran-dot-flake/Bedside-Hack-The-Box-Writeup",
+      "updatedAt": "2026-10-16T18:30:38+00:00",
+      "repository": "Bedside-Hack-The-Box-Writeup"
+    },
     {
       "id": "support-note",
       "title": "Support: from SMB to SYSTEM",

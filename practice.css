@@ -91,3 +91,25 @@
 @media(max-width:760px){.practice-platform-grid{grid-template-columns:1fr;gap:17px}.practice-platform-card{padding:23px}.practice-page .page-header{margin-bottom:24px}.practice-page .page-description{font-size:14px}.letsdefend-visual{max-width:440px;width:100%;margin-left:auto;margin-right:auto}.htb-visual{min-height:190px}.kc7-visual{min-height:160px}.web-topic-grid{min-height:186px}.platform-card-heading>a{font-size:9px}.platform-identity h2{font-size:20px}.platform-identity p{font-size:8px}}
 @media(max-width:460px){.practice-platform-card{padding:21px 18px 18px}.platform-card-heading{gap:10px}.platform-identity{gap:9px}.platform-identity>img{width:30px;height:30px}.platform-identity h2{font-size:18px}.platform-identity p{font-size:7px}.platform-card-heading>a{font-size:8px}.letsdefend-visual{height:220px}.alert-radar{height:210px}.radar-total strong{font-size:24px}.radar-total span{font-size:8px}.path-badges>span{font-size:9px;padding:5px 8px}.kc7-visual{gap:18px;padding:16px 11px}.kc7-inputs>span{font-size:8px;padding:5px 3px}.kc7-query strong{font-size:19px}.kc7-query::before{left:-6px;width:5px}.kc7-query::after{right:-18px;width:17px}.kc7-inputs::after{right:-12px}.kc7-inputs>span::after{right:-12px;width:11px}.web-topic-grid{grid-template-columns:repeat(2,minmax(0,1fr));min-height:241px}.web-topic-grid>a{gap:10px;padding:13px 6px}}
 @media(prefers-reduced-motion:reduce){.completion-track>span{transition:none}}
+
+/* HTB's unified rank is separate from machine / Sherlock completion counts. */
+.htb-rank{display:flex;align-items:center;gap:14px;margin:0 0 15px;padding:11px 14px;border:1px solid var(--line);border-radius:5px;background:var(--bg)}
+.htb-rank-badge{display:block;position:relative;width:70px;height:60px;overflow:hidden;flex-shrink:0}
+.htb-rank-badge>img{display:block;width:70px;height:60px;object-fit:contain}
+.htb-rank-badge.snapshot-badge>img{position:absolute;max-width:none;width:160.55px;height:179.62px;left:-50.64px;top:-19.36px}
+.htb-rank-details{flex:1;min-width:0}
+.htb-rank-details>p{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 8px}
+.htb-rank-details strong{font:600 14px/1.4 var(--sans);color:var(--text)}
+.htb-rank-details p>span{white-space:nowrap;font:10px/1.5 var(--mono);color:var(--dim)}
+.htb-rank-details b{font-size:19px;color:var(--platform-color)}
+.htb-rank progress{display:block;width:100%;height:5px;border:0;border-radius:2px;overflow:hidden;appearance:none;background:var(--raised);accent-color:var(--platform-color)}
+.htb-rank progress::-webkit-progress-bar{background:var(--raised)}
+.htb-rank progress::-webkit-progress-value{background:var(--platform-color)}
+.htb-rank progress::-moz-progress-bar{background:var(--platform-color)}
+.htb-rank-details small{display:block;margin-top:6px;font:8px/1.5 var(--mono);color:var(--dim)}
+.platform-htb .htb-visual{min-height:174px;gap:14px}
+.completion-count{display:inline-flex;align-items:center;gap:10px}
+.completion-count svg{width:23px;height:23px;flex-shrink:0}
+.recent-labs a{display:inline-flex;align-items:center;gap:8px}
+.recent-labs small{font-size:8px;color:var(--dim)}
+.htb-rank progress[hidden],.htb-rank-badge>img[hidden]{display:none}

@@ -6,6 +6,7 @@ Failed or unrecognized responses leave that platform's last good snapshot intact
 import json
 import re
 import urllib.request
+from urllib.parse import urlparse
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
@@ -14,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = ROOT / "stats.js"
 PREFIX = "window.PORTFOLIO_STATS = "
 KC7_URL = "https://kc7cyber.com/profile/281dc195"
+HTB_XP_URL = "https://labs.hackthebox.com/api/experience/v1/account/a1b96d34-c10d-4b0c-9589-07664720b550"
 HTB_BASE = "https://labs.hackthebox.com/api/v4/profile/progress"
 LETSDEFEND_ALERTS_URL = "https://app-backend.letsdefend.io/accounts/api_retrieve/get_user_alert_type_success_rate/"
 LETSDEFEND_COMPLETED_PATHS = 2  # Manual value; not exposed by the public profile.
@@ -63,6 +65,33 @@ def htb_metrics(machine_json, sherlock_json):
     machines = json.loads(machine_json)["profile"]["machine_owns"]["solved"]
     sherlocks = json.loads(sherlock_json)["profile"]["challenge_owns"]["solved"]
     return [count(machines), count(sherlocks)]
+
+
+
+def htb_profile(raw):
+    """Parse the unified XP card, never the unrelated legacy Labs rank."""
+    profile = json.loads(raw)
+    if not isinstance(profile, dict):
+        raise ValueError("Unrecognized HTB XP response")
+    level = count(profile.get("level"))
+    title = profile.get("levelTitle")
+    grade = profile.get("levelGrade")
+    if level < 1 or title not in {"Beginner", "Apprentice", "Skilled", "Professional", "Master", "Prodigy", "Grandmaster"}:
+        raise ValueError("Invalid HTB level or title")
+    if str(grade) not in {"1", "2", "3"}:
+        raise ValueError("Invalid HTB grade")
+    image = profile.get("rankImage")
+    parsed = urlparse(image) if isinstance(image, str) else None
+    if (not parsed or parsed.scheme != "https" or parsed.username or parsed.password
+            or parsed.hostname not in {"cdn.services-k8s.prod.aws.htb.systems", "labs.hackthebox.com", "app.hackthebox.com", "account.hackthebox.com", "profile.hackthebox.com", "assets.hackthebox.com"}):
+        raise ValueError("Unrecognized HTB badge URL")
+    earned = count(profile.get("levelExperiencePoints"))
+    remaining = count(profile.get("experienceUntilNextLevel"))
+    if earned + remaining <= 0:
+        raise ValueError("Invalid HTB XP progress")
+    return {"level": level, "title": title, "grade": int(grade),
+            "image": image, "xp": earned, "xpTotal": earned + remaining,
+            "source": "public-profile"}
 
 
 class Node:
@@ -197,11 +226,19 @@ def refresh():
     for platform, loader in loaders.items():
         try:
             metrics = loader()
-            data[platform] = {"metrics": metrics, "updatedAt": updated}
+            data[platform] = {**data.get(platform, {}), "metrics": metrics, "updatedAt": updated}
             print(f"{platform}: refreshed {metrics}")
         except (OSError, ValueError, KeyError, TypeError) as error:
             # Do not print remote HTML, URLs, or response bodies into CI logs.
             print(f"{platform}: kept saved stats ({type(error).__name__})")
+    # Independent of completion counts: an unavailable XP endpoint must not
+    # erase a valid badge or stop other training stats from updating.
+    try:
+        profile = htb_profile(fetch(HTB_XP_URL))
+        data.setdefault("htb", {})["profile"] = {**profile, "updatedAt": updated}
+        print("htb profile: refreshed public XP card")
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        print(f"htb profile: kept saved XP card ({type(error).__name__})")
     source = PREFIX + json.dumps(data, indent=2, sort_keys=True) + ";\n"
     temporary = SNAPSHOT.with_suffix(".tmp")
     temporary.write_text(source, encoding="utf-8")
