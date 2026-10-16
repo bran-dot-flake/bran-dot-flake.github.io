@@ -14,20 +14,20 @@ window.PORTFOLIO_STATS = {
       "xp": 392,
       "xpTotal": 1163
     },
-    "updatedAt": "2026-10-16T18:51:23+00:00"
+    "updatedAt": "2026-10-16T18:58:41+00:00"
   },
   "kc7": {
     "metrics": [
       4,
       3
     ],
-    "updatedAt": "2026-10-16T18:51:23+00:00"
+    "updatedAt": "2026-10-16T18:58:41+00:00"
   },
   "letsdefend": {
     "metrics": [
       24,
       2
     ],
-    "updatedAt": "2026-10-16T18:51:23+00:00"
+    "updatedAt": "2026-10-16T18:58:41+00:00"
   }
 };
