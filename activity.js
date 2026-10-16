@@ -1,18 +1,18 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-10-16T14:55:38+00:00",
+  "updatedAt": "2026-10-16T18:51:23+00:00",
   "sourceCheckedAt": {
     "github": "2026-10-16T14:55:38+00:00",
-    "htb": "2026-10-16T14:55:38+00:00"
+    "htb": "2026-10-16T18:51:23+00:00"
   },
   "items": [
     {
       "id": "github:Bedside-Hack-The-Box-Writeup",
       "source": "github",
-      "action": "built",
+      "action": "wrote up",
       "title": "Bedside",
-      "detail": "Exploiting unsafe PDFMiner deserialization for initial access, followed by path traversal, and malicious PyTorch checkpoint deserialization.",
+      "detail": "Exploiting a PDFMiner file-processing vulnerability, pivoting through an internal development server, and abusing an unsafe PyTorch checkpoint.",
       "url": "https://github.com/bran-dot-flake/Bedside-Hack-The-Box-Writeup",
-      "date": "2026-10-16T14:55:29+00:00",
+      "date": "2026-10-16T18:30:38+00:00",
       "workKey": "bedside"
     },
     {
@@ -164,6 +164,118 @@ window.PORTFOLIO_ACTIVITY = {
       "url": "https://github.com/bran-dot-flake/CompTIA-Sec-Home-Lab",
       "date": "2026-05-05T15:53:11+00:00",
       "workKey": "comptia sec home lab"
+    }
+  ],
+  "htbRecent": [
+    {
+      "id": "htb:root:927",
+      "source": "htb",
+      "action": "completed",
+      "title": "Bedside",
+      "detail": "Hack The Box machine · system owned",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-10-16T14:34:34+00:00",
+      "workKey": "bedside"
+    },
+    {
+      "id": "htb:root:484",
+      "source": "htb",
+      "action": "completed",
+      "title": "Support",
+      "detail": "Hack The Box machine · system owned",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-10-15T13:10:27+00:00",
+      "workKey": "support"
+    },
+    {
+      "id": "htb:sherlock:1626",
+      "source": "htb",
+      "action": "completed",
+      "title": "VoIP",
+      "detail": "Hack The Box Sherlock",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-10-08T20:06:10+00:00",
+      "workKey": "voip"
+    },
+    {
+      "id": "htb:sherlock:1767",
+      "source": "htb",
+      "action": "completed",
+      "title": "Learn Sigma",
+      "detail": "Hack The Box Sherlock",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-10-08T19:43:20+00:00",
+      "workKey": "learn sigma"
+    },
+    {
+      "id": "htb:sherlock:1611",
+      "source": "htb",
+      "action": "completed",
+      "title": "NoSignal",
+      "detail": "Hack The Box Sherlock",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-10-08T14:57:10+00:00",
+      "workKey": "nosignal"
+    },
+    {
+      "id": "htb:sherlock:1794",
+      "source": "htb",
+      "action": "completed",
+      "title": "Threat Hunting with Splunk",
+      "detail": "Hack The Box Sherlock",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-10-07T18:40:39+00:00",
+      "workKey": "threat hunting with splunk"
+    },
+    {
+      "id": "htb:sherlock:1728",
+      "source": "htb",
+      "action": "completed",
+      "title": "Remote Access Regret",
+      "detail": "Hack The Box Sherlock",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-10-07T16:22:18+00:00",
+      "workKey": "remote access regret"
+    },
+    {
+      "id": "htb:root:933",
+      "source": "htb",
+      "action": "completed",
+      "title": "Cohort",
+      "detail": "Hack The Box machine · system owned",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-08-19T17:56:09+00:00",
+      "workKey": "cohort"
+    },
+    {
+      "id": "htb:sherlock:1359",
+      "source": "htb",
+      "action": "completed",
+      "title": "Baggage",
+      "detail": "Hack The Box Sherlock",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-08-14T14:10:32+00:00",
+      "workKey": "baggage"
+    },
+    {
+      "id": "htb:sherlock:1296",
+      "source": "htb",
+      "action": "completed",
+      "title": "PhantomRing",
+      "detail": "Hack The Box Sherlock",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-08-12T15:22:46+00:00",
+      "workKey": "phantomring"
+    },
+    {
+      "id": "htb:root:906",
+      "source": "htb",
+      "action": "completed",
+      "title": "Connected",
+      "detail": "Hack The Box machine · system owned",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-08-09T15:34:41+00:00",
+      "workKey": "connected"
     }
   ]
 };
