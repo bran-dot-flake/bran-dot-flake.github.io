@@ -1,10 +1,20 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-10-15T18:50:49+00:00",
+  "updatedAt": "2026-10-16T14:55:38+00:00",
   "sourceCheckedAt": {
-    "github": "2026-10-15T18:50:49+00:00",
-    "htb": "2026-10-15T18:50:49+00:00"
+    "github": "2026-10-16T14:55:38+00:00",
+    "htb": "2026-10-16T14:55:38+00:00"
   },
   "items": [
+    {
+      "id": "github:Bedside-Hack-The-Box-Writeup",
+      "source": "github",
+      "action": "built",
+      "title": "Bedside",
+      "detail": "Exploiting unsafe PDFMiner deserialization for initial access, followed by path traversal, and malicious PyTorch checkpoint deserialization.",
+      "url": "https://github.com/bran-dot-flake/Bedside-Hack-The-Box-Writeup",
+      "date": "2026-10-16T14:55:29+00:00",
+      "workKey": "bedside"
+    },
     {
       "id": "github:Support-Hack-The-Box-Writeup",
       "source": "github",
@@ -124,26 +134,6 @@ window.PORTFOLIO_ACTIVITY = {
       "url": "https://app.hackthebox.com/users/3476736",
       "date": "2026-08-12T15:22:46+00:00",
       "workKey": "phantomring"
-    },
-    {
-      "id": "htb:sherlock:1105",
-      "source": "htb",
-      "action": "completed",
-      "title": "MangoBleed",
-      "detail": "Hack The Box Sherlock",
-      "url": "https://app.hackthebox.com/users/3476736",
-      "date": "2026-08-06T17:19:45+00:00",
-      "workKey": "mangobleed"
-    },
-    {
-      "id": "htb:sherlock:631",
-      "source": "htb",
-      "action": "completed",
-      "title": "Brutus",
-      "detail": "Hack The Box Sherlock",
-      "url": "https://app.hackthebox.com/users/3476736",
-      "date": "2026-08-06T16:11:44+00:00",
-      "workKey": "brutus"
     },
     {
       "id": "github:Automated-SOC-Pipeline-Using-Wazuh-Shuffle-and-TheHive",
