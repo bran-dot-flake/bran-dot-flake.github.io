@@ -128,7 +128,13 @@
     // legible; its labels and links come directly from the field-note cards.
     const columns = Math.min(3, groups.size);
     const rows = Math.ceil(groups.size / columns);
-    const width = 1080, rowHeight = 200, height = rows * rowHeight + 32;
+    const width = 1080;
+    const entries = [...groups.entries()];
+    const tiers = Array.from({ length: rows }, (_, row) => Math.max(...entries.slice(row * columns, (row + 1) * columns).map(([, group]) => Math.ceil(group.topics.size / 3))));
+    const firstHubY = 40 + tiers[0] * 44;
+    const rowHubs = [firstHubY];
+    for (let row = 1; row < rows; row++) rowHubs.push(row === 1 ? firstHubY + 120 : rowHubs[row - 1] + tiers[row - 1] * 44 + 104);
+    const height = rows === 1 ? firstHubY + 72 : rowHubs.at(-1) + 72 + tiers.at(-1) * 44;
     const svg = svgNode('svg', {
       viewBox: `0 0 ${width} ${height}`, class: 'topic-constellation',
       role: 'group', 'aria-label': 'Blog topic constellation. Select a topic to jump to its field note.',
@@ -136,7 +142,7 @@
     const lines = svgNode('g', { class: 'constellation-lines', 'aria-hidden': 'true' });
     const nodes = svgNode('g');
     svg.append(lines, nodes);
-    const root = { x: width / 2, y: rows > 1 ? 208 : 179 };
+    const root = { x: width / 2, y: rows > 1 ? firstHubY + 60 : firstHubY + 50 };
     const connect = (a, b) => {
       lines.append(svgNode('path', { d: `M${a.x},${a.y} L${b.x},${b.y}` }));
     };
@@ -165,17 +171,17 @@
       const row = Math.floor(index / columns);
       const count = Math.min(columns, groups.size - row * columns);
       const cellWidth = width / count;
-      const hub = { x: cellWidth * (index % columns + .5), y: row === 0 ? 132 : 285 + (row - 1) * rowHeight };
+      const hub = { x: cellWidth * (index % columns + .5), y: rowHubs[row] };
       connect(hub, root);
       addNode(hub, name, index, group.cards[0], true);
       const allTopics = [...group.topics.entries()];
       allTopics.forEach(([topic]) => uniqueTopics.add(topic));
-      const topics = allTopics.slice(0, 6);
+      const topics = allTopics;
       topics.forEach(([topic, card], i) => {
         const tier = Math.floor(i / 3), tierSize = Math.min(3, topics.length - tier * 3);
         const point = {
           x: hub.x + (i % 3 - (tierSize - 1) / 2) * 106,
-          y: row === 0 ? 34 + tier * 44 : hub.y + 60 + tier * 44,
+          y: row === 0 ? 28 + tier * 44 : hub.y + 60 + tier * 44,
         };
         connect(hub, point);
         addNode(point, topic, index, card);

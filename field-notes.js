@@ -61,7 +61,9 @@ window.PORTFOLIO_NOTES = {
       "topics": [
         "TShark",
         "RTSP",
-        "RTP"
+        "RTP",
+        "HTTP",
+        "Timeline analysis"
       ],
       "category": "HACK THE BOX / SHERLOCK · DFIR",
       "image": "assets/nosignal.svg",
@@ -83,6 +85,8 @@ window.PORTFOLIO_NOTES = {
       "topics": [
         "Splunk",
         "Sysmon",
+        "SPL",
+        "PowerShell",
         "C2"
       ],
       "category": "HACK THE BOX / SHERLOCK · THREAT HUNTING",
@@ -105,7 +109,9 @@ window.PORTFOLIO_NOTES = {
       "topics": [
         "Chrome",
         "AnyDesk",
-        "Artifacts"
+        "SQLite",
+        "Timeline analysis",
+        "File transfers"
       ],
       "category": "HACK THE BOX / SHERLOCK · DFIR",
       "image": "assets/remote-access.svg",
@@ -126,8 +132,10 @@ window.PORTFOLIO_NOTES = {
       "group": "Offensive security",
       "topics": [
         "FreePBX",
-        "Linux",
-        "SQL injection"
+        "SQL injection",
+        "Metasploit",
+        "incron",
+        "Linux"
       ],
       "category": "HACK THE BOX / MACHINE",
       "image": "assets/connected.svg",
@@ -147,8 +155,11 @@ window.PORTFOLIO_NOTES = {
       "group": "Network analysis",
       "topics": [
         "Wireshark",
-        "PCAP",
-        "TLS"
+        "HTTP",
+        "SMB / NTLM",
+        "Kerberos",
+        "TLS",
+        "PCAP"
       ],
       "category": "NETWORK ANALYSIS",
       "image": "assets/packets.svg",
@@ -168,8 +179,11 @@ window.PORTFOLIO_NOTES = {
       "group": "SOC automation",
       "topics": [
         "Wazuh",
+        "Sysmon",
         "Shuffle",
-        "TheHive"
+        "VirusTotal",
+        "TheHive",
+        "SOAR"
       ],
       "category": "DETECTION & AUTOMATION",
       "image": "assets/pipeline.svg",

@@ -1,0 +1,71 @@
+/* Shared pointer and hit-tested hover state. Runs before page content paints. */
+(() => {
+  'use strict';
+  const root = document.documentElement;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)');
+  const designs = {"default":{"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" shape-rendering=\"crispEdges\"><path fill=\"#281c28\" d=\"M2 1h1v1h-1ZM2 2h1v1h-1ZM3 2h1v1h-1ZM2 3h1v1h-1ZM4 3h1v1h-1ZM2 4h1v1h-1ZM5 4h1v1h-1ZM2 5h1v1h-1ZM6 5h1v1h-1ZM2 6h1v1h-1ZM7 6h1v1h-1ZM2 7h1v1h-1ZM8 7h1v1h-1ZM2 8h1v1h-1ZM9 8h1v1h-1ZM2 9h1v1h-1ZM10 9h1v1h-1ZM2 10h1v1h-1ZM7 10h1v1h-1ZM8 10h1v1h-1ZM9 10h1v1h-1ZM10 10h1v1h-1ZM11 10h1v1h-1ZM2 11h1v1h-1ZM5 11h1v1h-1ZM8 11h1v1h-1ZM2 12h1v1h-1ZM4 12h1v1h-1ZM6 12h1v1h-1ZM9 12h1v1h-1ZM2 13h1v1h-1ZM3 13h1v1h-1ZM6 13h1v1h-1ZM9 13h1v1h-1ZM2 14h1v1h-1ZM7 14h1v1h-1ZM10 14h1v1h-1ZM7 15h1v1h-1ZM10 15h1v1h-1ZM8 16h1v1h-1ZM9 16h1v1h-1Z\"/><path fill=\"#ff9fd5\" d=\"M4 4h1v1h-1ZM4 5h1v1h-1ZM5 5h1v1h-1ZM4 6h1v1h-1ZM5 6h1v1h-1ZM6 6h1v1h-1ZM4 7h1v1h-1ZM5 7h1v1h-1ZM6 7h1v1h-1ZM7 7h1v1h-1ZM3 8h1v1h-1ZM4 8h1v1h-1ZM5 8h1v1h-1ZM6 8h1v1h-1ZM7 8h1v1h-1ZM8 8h1v1h-1ZM3 9h1v1h-1ZM4 9h1v1h-1ZM5 9h1v1h-1ZM6 9h1v1h-1ZM7 9h1v1h-1ZM8 9h1v1h-1ZM9 9h1v1h-1ZM3 10h1v1h-1ZM4 10h1v1h-1ZM5 10h1v1h-1ZM6 10h1v1h-1ZM3 11h1v1h-1ZM4 11h1v1h-1ZM6 11h1v1h-1ZM7 11h1v1h-1ZM3 12h1v1h-1ZM7 12h1v1h-1ZM8 12h1v1h-1ZM7 13h1v1h-1ZM8 13h1v1h-1ZM8 14h1v1h-1ZM9 14h1v1h-1ZM8 15h1v1h-1ZM9 15h1v1h-1Z\"/><path fill=\"#ffe5f4\" d=\"M3 3h1v1h-1ZM3 4h1v1h-1ZM3 5h1v1h-1ZM3 6h1v1h-1ZM3 7h1v1h-1Z\"/></svg>","hotspot":[2,1]},"link":{"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" shape-rendering=\"crispEdges\"><path fill=\"#281c28\" d=\"M7 1h1v1h-1ZM8 1h1v1h-1ZM6 2h1v1h-1ZM9 2h1v1h-1ZM6 3h1v1h-1ZM9 3h1v1h-1ZM6 4h1v1h-1ZM9 4h1v1h-1ZM6 5h1v1h-1ZM9 5h1v1h-1ZM10 5h1v1h-1ZM11 5h1v1h-1ZM12 5h1v1h-1ZM13 5h1v1h-1ZM14 5h1v1h-1ZM15 5h1v1h-1ZM6 6h1v1h-1ZM9 6h1v1h-1ZM12 6h1v1h-1ZM15 6h1v1h-1ZM16 6h1v1h-1ZM2 7h1v1h-1ZM3 7h1v1h-1ZM6 7h1v1h-1ZM17 7h1v1h-1ZM1 8h1v1h-1ZM4 8h1v1h-1ZM6 8h1v1h-1ZM17 8h1v1h-1ZM1 9h1v1h-1ZM5 9h1v1h-1ZM6 9h1v1h-1ZM17 9h1v1h-1ZM2 10h1v1h-1ZM17 10h1v1h-1ZM3 11h1v1h-1ZM17 11h1v1h-1ZM4 12h1v1h-1ZM17 12h1v1h-1ZM5 13h1v1h-1ZM16 13h1v1h-1ZM5 14h1v1h-1ZM16 14h1v1h-1ZM6 15h1v1h-1ZM7 15h1v1h-1ZM8 15h1v1h-1ZM9 15h1v1h-1ZM10 15h1v1h-1ZM11 15h1v1h-1ZM12 15h1v1h-1ZM13 15h1v1h-1ZM14 15h1v1h-1ZM15 15h1v1h-1Z\"/><path fill=\"#ff9fd5\" d=\"M8 2h1v1h-1ZM8 3h1v1h-1ZM8 4h1v1h-1ZM8 5h1v1h-1ZM7 6h1v1h-1ZM8 6h1v1h-1ZM10 6h1v1h-1ZM11 6h1v1h-1ZM13 6h1v1h-1ZM14 6h1v1h-1ZM7 7h1v1h-1ZM8 7h1v1h-1ZM9 7h1v1h-1ZM10 7h1v1h-1ZM11 7h1v1h-1ZM12 7h1v1h-1ZM13 7h1v1h-1ZM14 7h1v1h-1ZM15 7h1v1h-1ZM16 7h1v1h-1ZM2 8h1v1h-1ZM3 8h1v1h-1ZM7 8h1v1h-1ZM8 8h1v1h-1ZM9 8h1v1h-1ZM10 8h1v1h-1ZM11 8h1v1h-1ZM12 8h1v1h-1ZM13 8h1v1h-1ZM14 8h1v1h-1ZM15 8h1v1h-1ZM16 8h1v1h-1ZM2 9h1v1h-1ZM3 9h1v1h-1ZM4 9h1v1h-1ZM7 9h1v1h-1ZM8 9h1v1h-1ZM9 9h1v1h-1ZM10 9h1v1h-1ZM11 9h1v1h-1ZM12 9h1v1h-1ZM13 9h1v1h-1ZM14 9h1v1h-1ZM15 9h1v1h-1ZM16 9h1v1h-1ZM3 10h1v1h-1ZM4 10h1v1h-1ZM5 10h1v1h-1ZM6 10h1v1h-1ZM7 10h1v1h-1ZM8 10h1v1h-1ZM9 10h1v1h-1ZM10 10h1v1h-1ZM11 10h1v1h-1ZM12 10h1v1h-1ZM13 10h1v1h-1ZM14 10h1v1h-1ZM15 10h1v1h-1ZM16 10h1v1h-1ZM4 11h1v1h-1ZM5 11h1v1h-1ZM6 11h1v1h-1ZM7 11h1v1h-1ZM8 11h1v1h-1ZM9 11h1v1h-1ZM10 11h1v1h-1ZM11 11h1v1h-1ZM12 11h1v1h-1ZM13 11h1v1h-1ZM14 11h1v1h-1ZM15 11h1v1h-1ZM16 11h1v1h-1ZM5 12h1v1h-1ZM6 12h1v1h-1ZM7 12h1v1h-1ZM8 12h1v1h-1ZM9 12h1v1h-1ZM10 12h1v1h-1ZM11 12h1v1h-1ZM12 12h1v1h-1ZM13 12h1v1h-1ZM14 12h1v1h-1ZM15 12h1v1h-1ZM16 12h1v1h-1ZM6 13h1v1h-1ZM7 13h1v1h-1ZM8 13h1v1h-1ZM9 13h1v1h-1ZM10 13h1v1h-1ZM11 13h1v1h-1ZM12 13h1v1h-1ZM13 13h1v1h-1ZM14 13h1v1h-1ZM15 13h1v1h-1ZM6 14h1v1h-1ZM7 14h1v1h-1ZM8 14h1v1h-1ZM9 14h1v1h-1ZM10 14h1v1h-1ZM11 14h1v1h-1ZM12 14h1v1h-1ZM13 14h1v1h-1ZM14 14h1v1h-1ZM15 14h1v1h-1Z\"/><path fill=\"#ffe5f4\" d=\"M7 2h1v1h-1ZM7 3h1v1h-1ZM7 4h1v1h-1ZM7 5h1v1h-1Z\"/></svg>","hotspot":[7,1]},"text":{"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" shape-rendering=\"crispEdges\"><path fill=\"#281c28\" d=\"M6 2h1v1h-1ZM7 2h1v1h-1ZM8 2h1v1h-1ZM9 2h1v1h-1ZM10 2h1v1h-1ZM11 2h1v1h-1ZM12 2h1v1h-1ZM6 3h1v1h-1ZM12 3h1v1h-1ZM6 15h1v1h-1ZM12 15h1v1h-1ZM6 16h1v1h-1ZM7 16h1v1h-1ZM8 16h1v1h-1ZM9 16h1v1h-1ZM10 16h1v1h-1ZM11 16h1v1h-1ZM12 16h1v1h-1ZM8 4h1v1h-1ZM10 4h1v1h-1ZM8 5h1v1h-1ZM10 5h1v1h-1ZM8 6h1v1h-1ZM10 6h1v1h-1ZM8 7h1v1h-1ZM10 7h1v1h-1ZM8 8h1v1h-1ZM10 8h1v1h-1ZM8 9h1v1h-1ZM10 9h1v1h-1ZM8 10h1v1h-1ZM10 10h1v1h-1ZM8 11h1v1h-1ZM10 11h1v1h-1ZM8 12h1v1h-1ZM10 12h1v1h-1ZM8 13h1v1h-1ZM10 13h1v1h-1ZM8 14h1v1h-1ZM10 14h1v1h-1Z\"/><path fill=\"#ff9fd5\" d=\"M7 3h1v1h-1ZM8 3h1v1h-1ZM9 3h1v1h-1ZM10 3h1v1h-1ZM11 3h1v1h-1ZM7 15h1v1h-1ZM8 15h1v1h-1ZM9 15h1v1h-1ZM10 15h1v1h-1ZM11 15h1v1h-1ZM9 4h1v1h-1ZM9 5h1v1h-1ZM9 6h1v1h-1ZM9 7h1v1h-1ZM9 8h1v1h-1ZM9 9h1v1h-1ZM9 10h1v1h-1ZM9 11h1v1h-1ZM9 12h1v1h-1ZM9 13h1v1h-1ZM9 14h1v1h-1Z\"/></svg>","hotspot":[9,9]},"chart":{"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" shape-rendering=\"crispEdges\"><path fill=\"#281c28\" d=\"M2 8h1v1h-1ZM2 10h1v1h-1ZM3 8h1v1h-1ZM3 10h1v1h-1ZM4 8h1v1h-1ZM4 10h1v1h-1ZM5 8h1v1h-1ZM5 10h1v1h-1ZM6 8h1v1h-1ZM6 10h1v1h-1ZM7 8h1v1h-1ZM7 10h1v1h-1ZM8 8h1v1h-1ZM8 9h1v1h-1ZM8 10h1v1h-1ZM10 8h1v1h-1ZM10 9h1v1h-1ZM10 10h1v1h-1ZM11 8h1v1h-1ZM11 10h1v1h-1ZM12 8h1v1h-1ZM12 10h1v1h-1ZM13 8h1v1h-1ZM13 10h1v1h-1ZM14 8h1v1h-1ZM14 10h1v1h-1ZM15 8h1v1h-1ZM15 10h1v1h-1ZM16 8h1v1h-1ZM16 10h1v1h-1ZM8 2h1v1h-1ZM10 2h1v1h-1ZM8 3h1v1h-1ZM10 3h1v1h-1ZM8 4h1v1h-1ZM10 4h1v1h-1ZM8 5h1v1h-1ZM10 5h1v1h-1ZM8 6h1v1h-1ZM10 6h1v1h-1ZM8 7h1v1h-1ZM10 7h1v1h-1ZM8 11h1v1h-1ZM10 11h1v1h-1ZM8 12h1v1h-1ZM10 12h1v1h-1ZM8 13h1v1h-1ZM10 13h1v1h-1ZM8 14h1v1h-1ZM10 14h1v1h-1ZM8 15h1v1h-1ZM10 15h1v1h-1ZM8 16h1v1h-1ZM10 16h1v1h-1Z\"/><path fill=\"#ff9fd5\" d=\"M2 9h1v1h-1ZM3 9h1v1h-1ZM4 9h1v1h-1ZM5 9h1v1h-1ZM6 9h1v1h-1ZM7 9h1v1h-1ZM9 8h1v1h-1ZM9 10h1v1h-1ZM11 9h1v1h-1ZM12 9h1v1h-1ZM13 9h1v1h-1ZM14 9h1v1h-1ZM15 9h1v1h-1ZM16 9h1v1h-1ZM9 2h1v1h-1ZM9 3h1v1h-1ZM9 4h1v1h-1ZM9 5h1v1h-1ZM9 6h1v1h-1ZM9 7h1v1h-1ZM9 11h1v1h-1ZM9 12h1v1h-1ZM9 13h1v1h-1ZM9 14h1v1h-1ZM9 15h1v1h-1ZM9 16h1v1h-1Z\"/><path fill=\"#ffe5f4\" d=\"M9 9h1v1h-1Z\"/></svg>","hotspot":[9,9]},"pressed":{"svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" shape-rendering=\"crispEdges\"><path fill=\"#281c28\" d=\"M7 1h1v1h-1ZM8 1h1v1h-1ZM6 2h1v1h-1ZM9 2h1v1h-1ZM6 3h1v1h-1ZM9 3h1v1h-1ZM6 4h1v1h-1ZM9 4h1v1h-1ZM6 5h1v1h-1ZM9 5h1v1h-1ZM10 5h1v1h-1ZM11 5h1v1h-1ZM12 5h1v1h-1ZM13 5h1v1h-1ZM14 5h1v1h-1ZM15 5h1v1h-1ZM6 6h1v1h-1ZM9 6h1v1h-1ZM12 6h1v1h-1ZM15 6h1v1h-1ZM16 6h1v1h-1ZM2 7h1v1h-1ZM3 7h1v1h-1ZM6 7h1v1h-1ZM17 7h1v1h-1ZM1 8h1v1h-1ZM4 8h1v1h-1ZM6 8h1v1h-1ZM17 8h1v1h-1ZM1 9h1v1h-1ZM5 9h1v1h-1ZM6 9h1v1h-1ZM17 9h1v1h-1ZM2 10h1v1h-1ZM17 10h1v1h-1ZM3 11h1v1h-1ZM17 11h1v1h-1ZM4 12h1v1h-1ZM17 12h1v1h-1ZM5 13h1v1h-1ZM16 13h1v1h-1ZM5 14h1v1h-1ZM16 14h1v1h-1ZM6 15h1v1h-1ZM7 15h1v1h-1ZM8 15h1v1h-1ZM9 15h1v1h-1ZM10 15h1v1h-1ZM11 15h1v1h-1ZM12 15h1v1h-1ZM13 15h1v1h-1ZM14 15h1v1h-1ZM15 15h1v1h-1Z\"/><path fill=\"#ff9fd5\" d=\"M8 2h1v1h-1ZM8 3h1v1h-1ZM8 4h1v1h-1ZM8 5h1v1h-1ZM7 6h1v1h-1ZM8 6h1v1h-1ZM10 6h1v1h-1ZM11 6h1v1h-1ZM13 6h1v1h-1ZM14 6h1v1h-1ZM7 7h1v1h-1ZM8 7h1v1h-1ZM9 7h1v1h-1ZM10 7h1v1h-1ZM11 7h1v1h-1ZM12 7h1v1h-1ZM13 7h1v1h-1ZM14 7h1v1h-1ZM15 7h1v1h-1ZM16 7h1v1h-1ZM2 8h1v1h-1ZM3 8h1v1h-1ZM7 8h1v1h-1ZM8 8h1v1h-1ZM9 8h1v1h-1ZM10 8h1v1h-1ZM11 8h1v1h-1ZM12 8h1v1h-1ZM13 8h1v1h-1ZM14 8h1v1h-1ZM15 8h1v1h-1ZM16 8h1v1h-1ZM2 9h1v1h-1ZM3 9h1v1h-1ZM4 9h1v1h-1ZM7 9h1v1h-1ZM8 9h1v1h-1ZM9 9h1v1h-1ZM10 9h1v1h-1ZM11 9h1v1h-1ZM12 9h1v1h-1ZM13 9h1v1h-1ZM14 9h1v1h-1ZM15 9h1v1h-1ZM16 9h1v1h-1ZM3 10h1v1h-1ZM4 10h1v1h-1ZM5 10h1v1h-1ZM6 10h1v1h-1ZM7 10h1v1h-1ZM8 10h1v1h-1ZM9 10h1v1h-1ZM10 10h1v1h-1ZM11 10h1v1h-1ZM12 10h1v1h-1ZM13 10h1v1h-1ZM14 10h1v1h-1ZM15 10h1v1h-1ZM16 10h1v1h-1ZM4 11h1v1h-1ZM5 11h1v1h-1ZM6 11h1v1h-1ZM7 11h1v1h-1ZM8 11h1v1h-1ZM9 11h1v1h-1ZM10 11h1v1h-1ZM11 11h1v1h-1ZM12 11h1v1h-1ZM13 11h1v1h-1ZM14 11h1v1h-1ZM15 11h1v1h-1ZM16 11h1v1h-1ZM5 12h1v1h-1ZM6 12h1v1h-1ZM7 12h1v1h-1ZM8 12h1v1h-1ZM9 12h1v1h-1ZM10 12h1v1h-1ZM11 12h1v1h-1ZM12 12h1v1h-1ZM13 12h1v1h-1ZM14 12h1v1h-1ZM15 12h1v1h-1ZM16 12h1v1h-1ZM6 13h1v1h-1ZM7 13h1v1h-1ZM8 13h1v1h-1ZM9 13h1v1h-1ZM10 13h1v1h-1ZM11 13h1v1h-1ZM12 13h1v1h-1ZM13 13h1v1h-1ZM14 13h1v1h-1ZM15 13h1v1h-1ZM6 14h1v1h-1ZM7 14h1v1h-1ZM8 14h1v1h-1ZM9 14h1v1h-1ZM10 14h1v1h-1ZM11 14h1v1h-1ZM12 14h1v1h-1ZM13 14h1v1h-1ZM14 14h1v1h-1ZM15 14h1v1h-1ZM3 0h1v1h-1ZM2 1h1v1h-1ZM4 1h1v1h-1ZM3 2h1v1h-1ZM12 0h1v1h-1ZM11 1h1v1h-1ZM13 1h1v1h-1ZM12 2h1v1h-1Z\"/><path fill=\"#ffe5f4\" d=\"M7 2h1v1h-1ZM7 3h1v1h-1ZM7 4h1v1h-1ZM7 5h1v1h-1Z\"/></svg>","hotspot":[7,1]}};
+  const pointer = document.createElement('div');
+  pointer.className = 'pixel-pointer'; pointer.setAttribute('aria-hidden', 'true'); pointer.hidden = true;
+  const sprites = new Map();
+  Object.entries(designs).forEach(([kind, design]) => {
+    const sprite = document.createElement('span'); sprite.innerHTML = design.svg;
+    sprite.hidden = true; pointer.append(sprite); sprites.set(kind, sprite);
+  });
+  document.body.append(pointer);
+  const key = 'brandon-cursor-position';
+  let point = null, frame = null, pressed = false, kind = null, hovered = new Set();
+  function clearHover() { hovered.forEach(el => el.classList.remove('is-hovered')); hovered.clear(); }
+  function hide() { pointer.hidden = true; root.classList.remove('pixel-pointer-active'); clearHover(); }
+  function paint() {
+    frame = null;
+    if (!fine.matches || !point || document.hidden) { hide(); return; }
+    const hit = document.elementFromPoint(point.x, point.y);
+    if (!hit) { hide(); return; }
+    const next = new Set();
+    for (let el = hit; el && el !== root && el !== document.body; el = el.parentElement) next.add(el);
+    hovered.forEach(el => { if (!next.has(el)) el.classList.remove('is-hovered'); });
+    next.forEach(el => { if (!hovered.has(el)) el.classList.add('is-hovered'); }); hovered = next;
+    let nextKind = 'default';
+    if (hit.closest('.contribution-day')) nextKind = 'chart';
+    else if (hit.closest('a,button,summary,[role="button"],[data-card-href],[data-name-hover]')) nextKind = pressed ? 'pressed' : 'link';
+    else if (hit.closest('p,h1:not(#hero-title),h2,h3,.responsibility-label,.responsibility-tools span,input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]),textarea,[contenteditable="true"]')) nextKind = 'text';
+    if (kind !== nextKind) {
+      if (kind) sprites.get(kind).hidden = true;
+      sprites.get(nextKind).hidden = false; kind = nextKind; pointer.dataset.cursorKind = kind;
+    }
+    const [x, y] = designs[kind].hotspot;
+    pointer.style.transform = `translate3d(${point.x - x * 1.2}px,${point.y - y * 1.2}px,0)`;
+    pointer.hidden = false; root.classList.add('pixel-pointer-active');
+  }
+  const queue = () => { if (frame === null) frame = requestAnimationFrame(paint); };
+  function remember() {
+    if (!point || !fine.matches) return;
+    try { sessionStorage.setItem(key, JSON.stringify({ ...point, width: innerWidth, height: innerHeight, at: Date.now() })); } catch (_) {}
+  }
+  function restore() {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(key));
+      if (!point && saved && Date.now() - saved.at < 12000 && saved.width === innerWidth && saved.height === innerHeight && Number.isFinite(saved.x) && Number.isFinite(saved.y) && saved.x >= 0 && saved.y >= 0 && saved.x < innerWidth && saved.y < innerHeight) point = { x: saved.x, y: saved.y };
+    } catch (_) {}
+    pressed = false; paint();
+  }
+  function locate(event) {
+    if (event.pointerType !== 'mouse' || !fine.matches) return;
+    point = { x: event.clientX, y: event.clientY }; queue();
+  }
+  document.addEventListener('pointermove', locate, { passive: true });
+  document.addEventListener('pointerdown', event => { locate(event); pressed = event.pointerType === 'mouse'; remember(); queue(); });
+  document.addEventListener('pointerup', event => { locate(event); pressed = false; queue(); });
+  document.addEventListener('pointercancel', () => { pressed = false; hide(); });
+  document.addEventListener('scroll', queue, { passive: true, capture: true });
+  document.addEventListener('click', remember, true);
+  root.addEventListener('pointerleave', () => { remember(); point = null; hide(); });
+  window.addEventListener('pagehide', remember);
+  window.addEventListener('pageshow', restore);
+  window.addEventListener('blur', hide);
+  window.addEventListener('focus', queue);
+  window.addEventListener('resize', () => { if (point && (point.x >= innerWidth || point.y >= innerHeight)) point = null; queue(); });
+  document.addEventListener('visibilitychange', () => document.hidden ? hide() : queue());
+  fine.addEventListener('change', () => { if (!fine.matches) { point = null; hide(); } else queue(); });
+  restore();
+})();

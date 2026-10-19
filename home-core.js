@@ -117,99 +117,6 @@
   }
   document.querySelectorAll('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
 
-  // Paint the same small pixel cursor across document navigations. Native SVG
-  // cursors can stay at their fallback until the browser receives another move.
-  (() => {
-    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-    const storageKey = 'brandon-cursor-position';
-    const designs = {
-      default: ['assets/cursor-pink.svg', 2, 1],
-      link: ['assets/cursor-pink-link.svg', 7, 1],
-      text: ['assets/cursor-pink-text.svg', 9, 9],
-      chart: ['assets/cursor-pink-target.svg', 9, 9],
-      pressed: ['assets/cursor-pink-pressed.svg', 7, 1],
-    };
-    const cursor = document.createElement('img');
-    cursor.className = 'pixel-pointer';
-    cursor.alt = '';
-    cursor.setAttribute('aria-hidden', 'true');
-    cursor.width = cursor.height = 24;
-    cursor.hidden = true;
-    document.body.append(cursor);
-    Object.values(designs).forEach(([src]) => { const preload = new Image(); preload.src = src; });
-    let point = null, frame = null, pressed = false, kind = '';
-    let hoveredCard = null;
-    function hide() {
-      root.classList.remove('pixel-pointer-active');
-      hoveredCard?.classList.remove('is-hovered');
-      hoveredCard = null;
-      cursor.hidden = true;
-      cancelAnimationFrame(frame);
-      frame = null;
-    }
-    function paint() {
-      frame = null;
-      if (!finePointer.matches || !point || document.hidden) { hide(); return; }
-      const target = document.elementFromPoint(point.x, point.y);
-      if (!target) { hide(); return; }
-      const nextCard = target.closest('.intro-card,.cert-preview');
-      if (nextCard !== hoveredCard) {
-        hoveredCard?.classList.remove('is-hovered');
-        hoveredCard = nextCard;
-        hoveredCard?.classList.add('is-hovered');
-      }
-      let nextKind = 'default';
-      if (target.closest('.contribution-day')) nextKind = 'chart';
-      else if (target.closest('a,button,summary,[role="button"],[data-card-href],[data-name-hover]')) nextKind = pressed ? 'pressed' : 'link';
-      else if (target.closest('p,h1:not(#hero-title),h2,h3,.responsibility-label,.responsibility-tools span,input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]),textarea,[contenteditable="true"]')) nextKind = 'text';
-      const [src, x, y] = designs[nextKind];
-      if (nextKind !== kind) { kind = nextKind; cursor.src = src; cursor.dataset.cursorKind = kind; }
-      cursor.style.transform = `translate3d(${point.x - x * 1.2}px,${point.y - y * 1.2}px,0)`;
-      if (cursor.complete && cursor.naturalWidth) {
-        cursor.hidden = false;
-        root.classList.add('pixel-pointer-active');
-      }
-    }
-    function queuePaint() { if (frame === null) frame = requestAnimationFrame(paint); }
-    function locate(event) {
-      if (event.pointerType !== 'mouse' || !finePointer.matches) return;
-      point = { x: event.clientX, y: event.clientY };
-      queuePaint();
-    }
-    function remember() {
-      if (!point || !finePointer.matches) return;
-      try { sessionStorage.setItem(storageKey, JSON.stringify({ ...point, width: innerWidth, height: innerHeight, at: Date.now() })); } catch (_) {}
-    }
-    function restore() {
-      try {
-        const saved = JSON.parse(sessionStorage.getItem(storageKey));
-        sessionStorage.removeItem(storageKey);
-        if (saved && Date.now() - saved.at < 12000 && saved.width === innerWidth && saved.height === innerHeight &&
-            Number.isFinite(saved.x) && Number.isFinite(saved.y) && saved.x >= 0 && saved.y >= 0 && saved.x < innerWidth && saved.y < innerHeight) {
-          point = { x: saved.x, y: saved.y };
-        }
-      } catch (_) {}
-      pressed = false;
-      paint();
-    }
-    cursor.addEventListener('load', paint);
-    cursor.addEventListener('error', hide);
-    document.addEventListener('pointermove', locate, { passive: true });
-    document.addEventListener('pointerdown', event => { locate(event); pressed = event.pointerType === 'mouse'; queuePaint(); });
-    document.addEventListener('pointerup', event => { locate(event); pressed = false; queuePaint(); });
-    document.addEventListener('pointercancel', () => { pressed = false; hide(); });
-    root.addEventListener('pointerleave', () => { point = null; hide(); });
-    document.addEventListener('scroll', queuePaint, { passive: true, capture: true });
-    window.addEventListener('resize', () => { if (point && (point.x >= innerWidth || point.y >= innerHeight)) point = null; queuePaint(); });
-    window.addEventListener('blur', hide);
-    window.addEventListener('focus', queuePaint);
-    window.addEventListener('pagehide', remember);
-    window.addEventListener('pageshow', restore);
-    document.addEventListener('visibilitychange', () => { if (document.hidden) hide(); else queuePaint(); });
-    finePointer.addEventListener('change', () => { if (!finePointer.matches) { point = null; hide(); } });
-    restore();
-  })();
-
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   (() => {
@@ -363,6 +270,9 @@
     const stage = visual.querySelector('.skills-stage');
     const leader = visual.querySelector('.skills-leader');
     const tooltip = visual.querySelector('[data-skill-tooltip]');
+    // A transformed card becomes a containing block for fixed descendants.
+    // Keep the viewport-positioned tooltip outside the card's hover transform.
+    document.body.append(tooltip);
     const status = visual.querySelector('[data-skills-status]');
     const ROTATION_DELAY = 6300;
     let index = 0, yaw = -35, timer = null, leaderFrame = null;
