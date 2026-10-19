@@ -1,10 +1,20 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-10-18T14:03:11+00:00",
+  "updatedAt": "2026-10-19T17:01:29+00:00",
   "sourceCheckedAt": {
-    "github": "2026-10-18T14:03:11+00:00",
-    "htb": "2026-10-18T14:03:11+00:00"
+    "github": "2026-10-19T17:01:29+00:00",
+    "htb": "2026-10-19T17:01:29+00:00"
   },
   "items": [
+    {
+      "id": "htb:root:987",
+      "source": "htb",
+      "action": "completed",
+      "title": "Touch",
+      "detail": "Hack The Box machine · system owned",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-10-18T15:25:34+00:00",
+      "workKey": "touch"
+    },
     {
       "id": "github:Bedside-Hack-The-Box-Writeup",
       "source": "github",
@@ -168,6 +178,16 @@ window.PORTFOLIO_ACTIVITY = {
   ],
   "htbRecent": [
     {
+      "id": "htb:root:987",
+      "source": "htb",
+      "action": "completed",
+      "title": "Touch",
+      "detail": "Hack The Box machine · system owned",
+      "url": "https://app.hackthebox.com/users/3476736",
+      "date": "2026-10-18T15:25:34+00:00",
+      "workKey": "touch"
+    },
+    {
       "id": "htb:root:927",
       "source": "htb",
       "action": "completed",
@@ -266,16 +286,6 @@ window.PORTFOLIO_ACTIVITY = {
       "url": "https://app.hackthebox.com/users/3476736",
       "date": "2026-08-12T15:22:46+00:00",
       "workKey": "phantomring"
-    },
-    {
-      "id": "htb:root:906",
-      "source": "htb",
-      "action": "completed",
-      "title": "Connected",
-      "detail": "Hack The Box machine · system owned",
-      "url": "https://app.hackthebox.com/users/3476736",
-      "date": "2026-08-09T15:34:41+00:00",
-      "workKey": "connected"
     }
   ]
 };
