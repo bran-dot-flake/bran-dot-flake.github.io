@@ -13,12 +13,10 @@
 .platform-identity>img{width:34px;height:34px;object-fit:cover;border-radius:5px;flex-shrink:0}
 .platform-identity p{font:8px/1.6 var(--mono);letter-spacing:1px;color:var(--platform-color);margin:0 0 3px}
 .platform-identity h2{font-size:20px;line-height:1.3;font-weight:700;letter-spacing:-.4px;margin:0}
-.platform-card-heading>a{font:9px/1.6 var(--mono);color:var(--platform-color);text-decoration:none;white-space:nowrap;flex-shrink:0}
-.platform-card-heading>a:hover{text-decoration:underline}
+.platform-card-heading>a{font:9px/1.6 var(--mono);color:var(--platform-color);text-decoration:none;white-space:nowrap;flex-shrink:0}html:not(.pixel-pointer-active) .platform-card-heading>a:hover,.platform-card-heading>a.is-hovered{text-decoration:underline}
 .platform-blurb{font-size:13px;line-height:1.8;color:var(--muted);margin:0 0 15px}
 .platform-card-footer{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-top:auto;padding-top:18px;font:8px/1.6 var(--mono);color:var(--dim)}
-.platform-card-footer>a{color:var(--platform-color);text-decoration:none}
-.platform-card-footer>a:hover{text-decoration:underline}
+.platform-card-footer>a{color:var(--platform-color);text-decoration:none}html:not(.pixel-pointer-active) .platform-card-footer>a:hover,.platform-card-footer>a.is-hovered{text-decoration:underline}
 .practice-platform-card .stat-progress{display:none}
 .letsdefend-visual{position:relative;margin:0 -5px 10px;height:234px}
 .alert-radar{display:block;width:100%;height:222px;max-width:none}
@@ -56,8 +54,7 @@
 .completion-lane p{font:9px/1.6 var(--mono);color:var(--dim);margin:9px 0 0}
 .recent-labs{margin-top:1px}
 .recent-labs>div{display:flex;flex-wrap:wrap;gap:8px}
-.recent-labs a{font:10px/1.6 var(--mono);color:var(--platform-color);padding:5px 9px;border:1px solid var(--line);border-radius:3px;background:var(--bg);text-decoration:none}
-.recent-labs a:hover{border-color:var(--platform-color)}
+.recent-labs a{font:10px/1.6 var(--mono);color:var(--platform-color);padding:5px 9px;border:1px solid var(--line);border-radius:3px;background:var(--bg);text-decoration:none}html:not(.pixel-pointer-active) .recent-labs a:hover,.recent-labs a.is-hovered{border-color:var(--platform-color)}
 .kc7-visual{display:grid;grid-template-columns:1.15fr .8fr 1fr;align-items:center;gap:25px;min-height:166px;padding:20px 18px;margin-bottom:18px;border:1px solid var(--line);border-radius:5px;background:var(--bg)}
 .kc7-inputs{position:relative;display:grid;gap:9px}
 .kc7-inputs>span{position:relative;font:9px/1.7 var(--mono);padding:6px 5px;text-align:center;border:1px solid var(--line);border-radius:3px;color:var(--muted)}
@@ -78,8 +75,7 @@
 .platform-skill-tags{display:flex;flex-wrap:wrap;gap:6px}
 .platform-skill-tags>span{padding:4px 7px;border:1px solid var(--line);border-radius:3px;font:8px/1.6 var(--mono);color:var(--platform-color);background:var(--bg)}
 .web-topic-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;min-height:209px;margin-bottom:17px}
-.web-topic-grid>a{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-align:center;min-width:0;padding:13px 7px;background:var(--bg);border:1px solid var(--line);border-radius:4px;color:var(--text);text-decoration:none}
-.web-topic-grid>a:hover{border-color:var(--platform-color);background:color-mix(in srgb,var(--platform-color) 4%,var(--bg))}
+.web-topic-grid>a{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-align:center;min-width:0;padding:13px 7px;background:var(--bg);border:1px solid var(--line);border-radius:4px;color:var(--text);text-decoration:none}html:not(.pixel-pointer-active) .web-topic-grid>a:hover,.web-topic-grid>a.is-hovered{border-color:var(--platform-color);background:color-mix(in srgb,var(--platform-color) 4%,var(--bg))}
 .web-topic-grid>a>span{font:500 21px/1.1 var(--mono);color:var(--platform-color)}
 .web-topic-grid strong{font:500 10px/1.5 var(--sans)}
 .web-count-status{display:none;font:9px/1.7 var(--mono);color:var(--dim);padding:8px 10px;border:1px solid var(--line);border-radius:3px;background:var(--bg);margin:0 0 3px}
@@ -112,3 +108,8 @@
 .recent-labs a{display:inline-flex;align-items:center;gap:8px}
 .recent-labs small{font-size:8px;color:var(--dim)}
 .htb-rank progress[hidden],.htb-rank-badge>img[hidden]{display:none}
+
+/* Rank and completion lanes form one continuous HTB panel. */
+.htb-overview{border:1px solid var(--line);border-radius:5px;background:var(--bg);margin-bottom:15px;overflow:hidden}
+.htb-overview .htb-rank{border:0;border-radius:0;background:none;margin:0;padding:17px 17px 7px}
+.htb-overview .htb-visual{border:0;border-radius:0;background:none;margin:0;padding:13px 17px 20px;min-height:174px}

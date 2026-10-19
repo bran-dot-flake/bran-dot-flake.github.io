@@ -51,13 +51,7 @@
       const validXp = Number.isSafeInteger(profile.xp) && Number.isSafeInteger(profile.xpTotal) && profile.xp >= 0 && profile.xpTotal > 0 && profile.xp <= profile.xpTotal;
       xp.hidden = !validXp;
       if (validXp) { xp.max = profile.xpTotal; xp.value = profile.xp; xp.title = `${profile.xp.toLocaleString('en-US')} / ${profile.xpTotal.toLocaleString('en-US')} XP`; }
-      const date = new Date(profile.updatedAt);
-      if (Number.isFinite(date.getTime())) {
-        const status = rank.querySelector('[data-htb-rank-status]');
-        const label = profile.source === 'public-profile' ? 'Profile checked' : 'Profile snapshot';
-        status.textContent = `${label} ${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' })}`;
-        status.title = date.toLocaleString('en-US', { timeZone: 'America/New_York' }) + ' ET';
-      }
+
     }
   }
   const web = document.querySelector('[data-platform="portswigger"]');

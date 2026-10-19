@@ -9,8 +9,7 @@
 .home-hero .hero-description{font:13px/1.85 var(--mono);color:var(--muted);max-width:740px;margin:0;padding-left:19px}
 .home-hero .hero-actions{margin-top:21px;gap:14px}
 .home-hero .button{padding:13px 21px}
-.explore-link{display:inline-flex;align-items:center;gap:12px;margin-top:24px;font:10px/1.6 var(--mono);letter-spacing:1.3px;text-decoration:none;color:var(--dim)}
-.explore-link:hover{color:var(--accent)}
+.explore-link{display:inline-flex;align-items:center;gap:12px;margin-top:24px;font:10px/1.6 var(--mono);letter-spacing:1.3px;text-decoration:none;color:var(--dim)}html:not(.pixel-pointer-active) .explore-link:hover,.explore-link.is-hovered{color:var(--accent)}
 .explore-link svg{width:15px;height:15px;animation:explore-nudge 3s ease-in-out infinite}
 @keyframes explore-nudge{0%,60%,100%{transform:translateY(0)}75%{transform:translateY(4px)}}
 .welcome-page .hero-activity{max-width:460px;margin-top:27px;padding:0;border:0;background:none}
@@ -22,8 +21,7 @@
 .welcome-page .recent-action:first-child::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 9px color-mix(in srgb,var(--accent) 65%,transparent)}
 .welcome-page .recent-action a{color:var(--muted);text-decoration:none;min-width:0;white-space:normal;overflow-wrap:anywhere}
 .activity-action{color:var(--muted)}
-.activity-item-title{color:var(--accent)}
-.welcome-page .recent-action a:hover .activity-item-title{text-decoration:underline}
+.activity-item-title{color:var(--accent)}html:not(.pixel-pointer-active) .welcome-page .recent-action a:hover .activity-item-title,.welcome-page .recent-action a.is-hovered .activity-item-title{text-decoration:underline}
 .welcome-page .recent-action time{font:8px/1.8 var(--mono);color:var(--dim);flex-shrink:0;white-space:nowrap}
 .home-content{max-width:1140px;margin:auto;padding:0 40px}
 .intro-card{--card-accent:var(--accent);display:grid;grid-template-columns:1fr 1fr;min-height:340px;overflow:hidden;border:1px solid var(--home-border);border-radius:7px;text-decoration:none;transition:border-color .2s,transform .2s;background:var(--surface);position:relative}
@@ -35,8 +33,7 @@
 .intro-card h2{font-size:29px;line-height:1.22;letter-spacing:-.8px;margin:0 0 18px;font-weight:630}
 .intro-card .card-description{font-size:15px;line-height:1.85;color:var(--muted);margin:0 0 13px}
 .card-link{display:inline-flex;align-items:center;gap:14px;font:11px/1.6 var(--mono);color:var(--card-accent);margin-top:18px;text-decoration:none}
-.card-link svg{width:16px;height:16px;transition:transform .2s}
-.card-link:hover svg,a.intro-card.is-hovered .card-link svg{transform:translateX(4px)}
+.card-link svg{width:16px;height:16px;transition:transform .2s}html:not(.pixel-pointer-active) .card-link:hover svg,.card-link.is-hovered svg,a.intro-card.is-hovered .card-link svg{transform:translateX(4px)}
 .experience-intro{--card-accent:var(--cyan);min-height:425px}
 .experience-intro .card-art{padding:14px}
 .welcome-page .skills-visual{--cubie-size:54px;--cubie-half:27px;--cubie-step:60px;width:100%;max-width:100%;border:0;border-radius:0;background:transparent}
@@ -61,8 +58,7 @@
 .practice-entry-metric{align-self:center;min-width:0}
 .practice-entry-metric strong{display:block;color:var(--text);font:600 21px/1.2 var(--mono);margin-bottom:4px}
 .practice-entry-metric>span{display:block;color:var(--dim);font:9px/1.5 var(--sans);min-height:14px;white-space:nowrap}
-.practice-profile{align-self:center;font:13px/1 var(--mono);color:var(--tone);text-decoration:none;padding:5px 0}
-.practice-profile:hover{color:var(--text)}
+.practice-profile{align-self:center;font:13px/1 var(--mono);color:var(--tone);text-decoration:none;padding:5px 0}html:not(.pixel-pointer-active) .practice-profile:hover,.practice-profile.is-hovered{color:var(--text)}
 .practice-entry .stat-progress{display:none}
 .welcome-page .practice-dashboard .activity-monitor{border:0;border-radius:0;background:transparent;margin:18px 0 0;padding:0;height:81px;min-width:0;overflow:hidden}
 .practice-dashboard .activity-monitor figcaption{font-size:8px}
@@ -135,7 +131,6 @@
 @media(max-width:410px){.home-hero-layout .home-hero-copy h1{font-size:clamp(28px,8.4vw,34px)}.home-hero-side .hero-activity{padding:20px 18px}.home-hero-side .recent-action{font-size:9px}.home-hero-side .recent-action time{font-size:7px}}
 @media(prefers-reduced-motion:reduce){.intro-card[data-card-href].is-hovered.is-hovered{transform:none}}
 
-.welcome-page .cert-preview.is-hovered{border-color:var(--tone);transform:translateY(-3px)}
-.welcome-page .cert-preview:hover:not(.is-hovered){border-color:var(--line);transform:none}
+.welcome-page .cert-preview.is-hovered{border-color:var(--tone);transform:translateY(-3px)}html:not(.pixel-pointer-active) .welcome-page .cert-preview:hover:not(.is-hovered),.welcome-page .cert-preview.is-hovered:not(.is-hovered){border-color:var(--line);transform:none}
 .intro-card[data-card-href="practice.html"].is-hovered{transform:translateY(-2px)}
 @media(prefers-reduced-motion:reduce){.welcome-page .cert-preview.is-hovered,.intro-card[data-card-href="practice.html"].is-hovered{transform:none}}
