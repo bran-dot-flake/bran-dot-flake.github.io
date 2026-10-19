@@ -143,11 +143,11 @@
     const nodes = svgNode('g');
     svg.append(lines, nodes);
     const root = { x: width / 2, y: rows > 1 ? firstHubY + 60 : firstHubY + 50 };
-    const connect = (a, b) => {
-      lines.append(svgNode('path', { d: `M${a.x},${a.y} L${b.x},${b.y}` }));
+    const connect = (a, b, cluster, kind) => {
+      lines.append(svgNode('path', { d: `M${a.x},${a.y} L${b.x},${b.y}`, 'data-topic-cluster': cluster, 'data-topic-edge': kind }));
     };
     const addNode = (point, label, groupIndex, card, hub = false) => {
-      const attrs = { class: `topic-node topic-tone-${groupIndex % 5}${hub ? ' topic-hub' : ''}` };
+      const attrs = { class: `topic-node topic-tone-${groupIndex % 5}${hub ? ' topic-hub' : ''}`, 'data-topic-cluster': groupIndex, 'data-topic-kind': hub ? 'hub' : card ? 'topic' : 'root' };
       if (card) { attrs.href = '#' + card.id; attrs['aria-label'] = `${label}: jump to ${card.querySelector('h2').textContent.trim()}`; }
       const node = svgNode(card ? 'a' : 'g', attrs);
       if (card) node.append(svgNode('rect', { x: point.x - 60, y: point.y - 15, width: 120, height: 49, fill: 'transparent' }));
@@ -172,7 +172,7 @@
       const count = Math.min(columns, groups.size - row * columns);
       const cellWidth = width / count;
       const hub = { x: cellWidth * (index % columns + .5), y: rowHubs[row] };
-      connect(hub, root);
+      connect(hub, root, index, 'hub');
       addNode(hub, name, index, group.cards[0], true);
       const allTopics = [...group.topics.entries()];
       allTopics.forEach(([topic]) => uniqueTopics.add(topic));
@@ -183,7 +183,7 @@
           x: hub.x + (i % 3 - (tierSize - 1) / 2) * 106,
           y: row === 0 ? 28 + tier * 44 : hub.y + 60 + tier * 44,
         };
-        connect(hub, point);
+        connect(hub, point, index, 'topic');
         addNode(point, topic, index, card);
         uniqueTopics.add(topic);
       });
