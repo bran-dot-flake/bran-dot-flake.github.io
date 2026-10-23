@@ -134,8 +134,7 @@ def github_repositories():
 def render_fallbacks(activity, notes):
     """Build the visible HTML too, so content works without JavaScript."""
     escape = lambda value: html.escape(str(value), quote=True)
-    icon_map = {'Hack The Box': 'assets/htb.png', 'Wireshark': 'assets/tools/wireshark.jpg',
-                'Wazuh': 'assets/tools/wazuh.png', 'Shuffle': 'assets/tools/shuffle.png', 'TheHive': 'assets/tools/thehive.svg'}
+    icon_map = json.loads((ROOT / 'tool-icons.json').read_text())
     cards = []
     for index, note in enumerate(notes.get('notes', [])):
         tags = []

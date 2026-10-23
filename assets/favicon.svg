@@ -1,1 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#101018"/><text x="6" y="44" fill="#d0a3ff" font-size="29" font-family="monospace" font-weight="bold">BC<tspan fill="#ff9ad1">.</tspan></text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#f4effa" stroke="#e0d5ed" stroke-width="2"/><text x="10" y="43" font-family="Arial, sans-serif" font-size="30" font-weight="800" letter-spacing="-3" fill="#7137b3">BC<tspan fill="#b32876">.</tspan></text></svg>
