@@ -1,24 +1,8 @@
 (() => {
   'use strict';
   const root = document.documentElement;
-  const themeButtons = document.querySelectorAll('.theme-toggle');
-  const storedTheme = root.dataset.theme;
-  if (!['dark', 'light'].includes(storedTheme)) root.dataset.theme = 'dark';
-  function syncTheme() {
-    const light = root.dataset.theme === 'light';
-    themeButtons.forEach(button => {
-      button.setAttribute('aria-pressed', String(light));
-      button.setAttribute('aria-label', `Switch to ${light ? 'dark' : 'light'} mode`);
-      button.querySelector('.theme-label').textContent = light ? 'Dark mode' : 'Light mode';
-    });
-    document.querySelector('meta[name="theme-color"]').content = light ? '#f7f7fc' : '#0a0b10';
-  }
-  themeButtons.forEach(button => button.addEventListener('click', () => {
-    root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
-    try { localStorage.setItem('brandon-theme', root.dataset.theme); } catch (_) {}
-    syncTheme();
-  }));
-  syncTheme();
+  root.dataset.theme = 'light';
+  document.querySelector('meta[name="theme-color"]').content = '#f7f7fc';
 
   const menuButton = document.querySelector('.menu-toggle');
   const mobileNav = document.getElementById('mobile-nav');
