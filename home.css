@@ -92,7 +92,7 @@
 .about-intro{--card-accent:var(--green);margin-top:31px;min-height:400px}
 .about-intro .card-copy{order:0}
 .about-intro .card-art{padding:0;min-height:400px}
-.home-portrait{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+.home-portrait{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
 .photo-note{position:absolute;bottom:18px;right:18px;background:#f8f6fbe8;border:1px solid #d7d5e5;padding:8px 12px;border-radius:3px;font:9px/1.6 var(--mono);letter-spacing:.8px;color:var(--muted)}
 .welcome-page .contact-section{padding:42px 0 49px}
 .welcome-page .contact-box{border-radius:7px;padding:36px}

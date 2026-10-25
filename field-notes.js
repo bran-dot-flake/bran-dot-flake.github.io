@@ -15,7 +15,7 @@ window.PORTFOLIO_NOTES = {
         "Linux"
       ],
       "category": "HACK THE BOX / MACHINE · LINUX",
-      "image": "assets/bedside.svg",
+      "image": "assets/bedside.svg?v=20261024",
       "tags": [
         "PDFMiner",
         "Docker",
@@ -41,7 +41,7 @@ window.PORTFOLIO_NOTES = {
         "Impacket"
       ],
       "category": "HACK THE BOX / MACHINE · ACTIVE DIRECTORY",
-      "image": "assets/support.svg",
+      "image": "assets/support.svg?v=20261024",
       "tags": [
         "Active Directory",
         "BloodHound",
@@ -66,7 +66,7 @@ window.PORTFOLIO_NOTES = {
         "Timeline analysis"
       ],
       "category": "HACK THE BOX / SHERLOCK · DFIR",
-      "image": "assets/nosignal.svg",
+      "image": "assets/nosignal.svg?v=20261024",
       "tags": [
         "TShark",
         "CCTV",
@@ -90,7 +90,7 @@ window.PORTFOLIO_NOTES = {
         "C2"
       ],
       "category": "HACK THE BOX / SHERLOCK · THREAT HUNTING",
-      "image": "assets/threat-hunt.svg",
+      "image": "assets/threat-hunt.svg?v=20261024",
       "tags": [
         "Splunk",
         "Sysmon",
@@ -114,7 +114,7 @@ window.PORTFOLIO_NOTES = {
         "File transfers"
       ],
       "category": "HACK THE BOX / SHERLOCK · DFIR",
-      "image": "assets/remote-access.svg",
+      "image": "assets/remote-access.svg?v=20261024",
       "tags": [
         "Chrome",
         "AnyDesk",
@@ -138,7 +138,7 @@ window.PORTFOLIO_NOTES = {
         "Linux"
       ],
       "category": "HACK THE BOX / MACHINE",
-      "image": "assets/connected.svg",
+      "image": "assets/connected.svg?v=20261024",
       "tags": [
         "Hack The Box",
         "Linux"
@@ -162,7 +162,7 @@ window.PORTFOLIO_NOTES = {
         "PCAP"
       ],
       "category": "NETWORK ANALYSIS",
-      "image": "assets/packets.svg",
+      "image": "assets/packets.svg?v=20261024",
       "tags": [
         "Wireshark",
         "Investigation"
@@ -186,7 +186,7 @@ window.PORTFOLIO_NOTES = {
         "SOAR"
       ],
       "category": "DETECTION & AUTOMATION",
-      "image": "assets/pipeline.svg",
+      "image": "assets/pipeline.svg?v=20261024",
       "tags": [
         "Wazuh",
         "Shuffle",
