@@ -3,7 +3,7 @@
    Optional progress uses completed / total, e.g. { completed: 25, total: 100 }.
    Add your photo to assets/ and set portrait.src to its relative path. */
 window.PORTFOLIO_CONTENT = {
-  portrait: { src: 'assets/brandon.jpg', alt: 'Brandon Chaney' },
+  portrait: { src: 'assets/brandon-oct2026.jpg', alt: 'Brandon Chaney' },
   platforms: {
     letsdefend: {
       profileUrl: 'https://app.letsdefend.io/user/bchaney',
