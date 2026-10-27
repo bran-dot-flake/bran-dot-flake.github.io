@@ -2,7 +2,7 @@ window.PORTFOLIO_STATS = {
   "htb": {
     "metrics": [
       8,
-      9
+      13
     ],
     "profile": {
       "grade": 1,
@@ -10,24 +10,24 @@ window.PORTFOLIO_STATS = {
       "level": 49,
       "source": "public-profile",
       "title": "Professional",
-      "updatedAt": "2026-10-26T16:49:40+00:00",
-      "xp": 15,
+      "updatedAt": "2026-10-27T15:54:53+00:00",
+      "xp": 195,
       "xpTotal": 1278
     },
-    "updatedAt": "2026-10-26T16:49:40+00:00"
+    "updatedAt": "2026-10-27T15:54:53+00:00"
   },
   "kc7": {
     "metrics": [
       4,
       3
     ],
-    "updatedAt": "2026-10-26T16:49:40+00:00"
+    "updatedAt": "2026-10-27T15:54:53+00:00"
   },
   "letsdefend": {
     "metrics": [
       24,
       2
     ],
-    "updatedAt": "2026-10-26T16:49:40+00:00"
+    "updatedAt": "2026-10-27T15:54:53+00:00"
   }
 };
