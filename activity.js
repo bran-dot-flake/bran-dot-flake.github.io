@@ -1,10 +1,20 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-10-29T16:58:49+00:00",
+  "updatedAt": "2026-10-30T16:43:53+00:00",
   "sourceCheckedAt": {
-    "github": "2026-10-29T16:58:49+00:00",
-    "htb": "2026-10-29T16:58:49+00:00"
+    "github": "2026-10-30T16:43:53+00:00",
+    "htb": "2026-10-30T16:43:53+00:00"
   },
   "items": [
+    {
+      "id": "github:Malware-Analysis-And-Rule-Lab",
+      "source": "github",
+      "action": "worked on",
+      "title": "Malware Analysis And Rule Lab",
+      "detail": "",
+      "url": "https://github.com/bran-dot-flake/Malware-Analysis-And-Rule-Lab",
+      "date": "2026-10-30T13:53:06+00:00",
+      "workKey": "malware analysis and rule lab"
+    },
     {
       "id": "htb:root:987",
       "source": "htb",
