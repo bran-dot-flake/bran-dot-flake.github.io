@@ -1,19 +1,19 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-11-02T20:25:03+00:00",
+  "updatedAt": "2026-11-03T17:54:42+00:00",
   "sourceCheckedAt": {
-    "github": "2026-11-02T20:25:03+00:00",
-    "htb": "2026-11-02T20:25:03+00:00"
+    "github": "2026-11-03T17:54:42+00:00",
+    "htb": "2026-11-03T17:54:42+00:00"
   },
   "items": [
     {
-      "id": "github:Malware-Analysis-And-Rule-Lab",
+      "id": "github:Agent-Tesla-Malware-Analysis-and-Detection-Engineering",
       "source": "github",
       "action": "worked on",
-      "title": "Malware Analysis And Rule Lab",
+      "title": "Agent Tesla Malware Analysis and Detection Engineering",
       "detail": "",
-      "url": "https://github.com/bran-dot-flake/Malware-Analysis-And-Rule-Lab",
-      "date": "2026-10-30T13:53:06+00:00",
-      "workKey": "malware analysis and rule lab"
+      "url": "https://github.com/bran-dot-flake/Agent-Tesla-Malware-Analysis-and-Detection-Engineering",
+      "date": "2026-11-03T15:26:38+00:00",
+      "workKey": "agent tesla malware analysis and detection engineering"
     },
     {
       "id": "htb:root:987",
