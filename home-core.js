@@ -258,7 +258,7 @@
     // Keep the viewport-positioned tooltip outside the card's hover transform.
     document.body.append(tooltip);
     const status = visual.querySelector('[data-skills-status]');
-    const ROTATION_DELAY = 6300;
+    const ROTATION_DELAY = 5800;
     let index = 0, yaw = -35, timer = null, leaderFrame = null;
     let visible = true, paused = motion.matches;
     const title = visual.querySelector('[data-skill-title]');

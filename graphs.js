@@ -24,7 +24,8 @@
       artifact.setAttribute('aria-hidden', 'true');
       const type = card.dataset.evidencePreview;
       const labels = { pipeline: 'WORKFLOW TRACE / ELAPSED TIME', ioc: 'BATCH ENRICHMENT / EXPORT',
-        packets: 'INVESTIGATION FILES', azure: 'SENTINEL / GEOIP WORKBOOK' };
+        packets: 'INVESTIGATION FILES', azure: 'SENTINEL / GEOIP WORKBOOK',
+        malware: 'RECOVERED CODE / DETECTION COVERAGE' };
       artifact.append(element('span', 'evidence-artifact-label', labels[type] || 'PROJECT OVERVIEW'));
       if (type === 'pipeline') {
         const flow = element('div', 'evidence-flow');
@@ -36,6 +37,14 @@
         artifact.append(flow);
       } else if (type === 'ioc') {
         artifact.append(element('code', 'evidence-command', 'python ioc_analyzer.py --file iocs.txt --json --csv'));
+      } else if (type === 'malware') {
+        const flow = element('div', 'evidence-flow');
+        [['4 layers', 'code recovered'], ['3 YARA', 'file signatures'], ['4 Sigma', 'host rules']].forEach(([name, detail], i) => {
+          if (i) flow.append(element('b', '', '→'));
+          const stage = element('span', '', name);
+          stage.append(element('small', '', detail)); flow.append(stage);
+        });
+        artifact.append(flow);
       } else if (type === 'packets') {
         const files = element('div', 'evidence-cases');
         ['HTTP', 'Nmap', 'TCP/53', 'IPv4', 'SMB3', 'Kerberos', 'TLS'].forEach((name, i) => {
