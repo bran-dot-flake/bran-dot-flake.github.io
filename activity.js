@@ -1,8 +1,8 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-11-05T18:07:09+00:00",
+  "updatedAt": "2026-11-05T20:38:17+00:00",
   "sourceCheckedAt": {
-    "github": "2026-11-05T18:07:09+00:00",
-    "htb": "2026-11-05T18:07:09+00:00"
+    "github": "2026-11-05T20:38:17+00:00",
+    "htb": "2026-11-05T20:38:17+00:00"
   },
   "items": [
     {
@@ -10,9 +10,9 @@ window.PORTFOLIO_ACTIVITY = {
       "source": "github",
       "action": "worked on",
       "title": "Agent Tesla Malware Analysis and Detection Engineering",
-      "detail": "",
+      "detail": "Analyzed Agent Tesla malware and developed YARA and Sigma rules to detect its behavior.",
       "url": "https://github.com/bran-dot-flake/Agent-Tesla-Malware-Analysis-and-Detection-Engineering",
-      "date": "2026-11-04T20:55:23+00:00",
+      "date": "2026-11-05T20:07:05+00:00",
       "workKey": "agent tesla malware analysis and detection engineering"
     },
     {
