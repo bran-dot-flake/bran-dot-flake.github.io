@@ -1,10 +1,20 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-11-05T20:38:17+00:00",
+  "updatedAt": "2026-11-06T17:33:49+00:00",
   "sourceCheckedAt": {
-    "github": "2026-11-05T20:38:17+00:00",
-    "htb": "2026-11-05T20:38:17+00:00"
+    "github": "2026-11-06T17:33:49+00:00",
+    "htb": "2026-11-06T17:33:49+00:00"
   },
   "items": [
+    {
+      "id": "github:Detection-as-Code-Pipeline",
+      "source": "github",
+      "action": "built",
+      "title": "Detection as Code Pipeline",
+      "detail": "",
+      "url": "https://github.com/bran-dot-flake/Detection-as-Code-Pipeline",
+      "date": "2026-11-05T20:49:16+00:00",
+      "workKey": "detection as code pipeline"
+    },
     {
       "id": "github:Agent-Tesla-Malware-Analysis-and-Detection-Engineering",
       "source": "github",
