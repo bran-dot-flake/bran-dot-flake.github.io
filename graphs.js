@@ -25,7 +25,8 @@
       const type = card.dataset.evidencePreview;
       const labels = { pipeline: 'WORKFLOW TRACE / ELAPSED TIME', ioc: 'BATCH ENRICHMENT / EXPORT',
         packets: 'INVESTIGATION FILES', azure: 'SENTINEL / GEOIP WORKBOOK',
-        malware: 'RECOVERED CODE / DETECTION COVERAGE' };
+        malware: 'RECOVERED CODE / DETECTION COVERAGE',
+        dac: 'SIGMA → SPLUNK / DETECTION LIFECYCLE' };
       artifact.append(element('span', 'evidence-artifact-label', labels[type] || 'PROJECT OVERVIEW'));
       if (type === 'pipeline') {
         const flow = element('div', 'evidence-flow');
@@ -40,6 +41,14 @@
       } else if (type === 'malware') {
         const flow = element('div', 'evidence-flow');
         [['4 layers', 'code recovered'], ['3 YARA', 'file signatures'], ['4 Sigma', 'host rules']].forEach(([name, detail], i) => {
+          if (i) flow.append(element('b', '', '→'));
+          const stage = element('span', '', name);
+          stage.append(element('small', '', detail)); flow.append(stage);
+        });
+        artifact.append(flow);
+      } else if (type === 'dac') {
+        const flow = element('div', 'evidence-flow');
+        [['Test', '117 expectations'], ['Verify', 'live Splunk'], ['Deploy', 'monitor + recover']].forEach(([name, detail], i) => {
           if (i) flow.append(element('b', '', '→'));
           const stage = element('span', '', name);
           stage.append(element('small', '', detail)); flow.append(stage);
