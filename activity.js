@@ -1,10 +1,20 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-11-09T17:31:51+00:00",
+  "updatedAt": "2026-11-09T20:50:57+00:00",
   "sourceCheckedAt": {
-    "github": "2026-11-09T17:31:51+00:00",
-    "htb": "2026-11-09T17:31:51+00:00"
+    "github": "2026-11-09T20:50:57+00:00",
+    "htb": "2026-11-09T20:50:57+00:00"
   },
   "items": [
+    {
+      "id": "github:LLM-Prompt-Injection",
+      "source": "github",
+      "action": "built",
+      "title": "LLM Prompt Injection",
+      "detail": "",
+      "url": "https://github.com/bran-dot-flake/LLM-Prompt-Injection",
+      "date": "2026-11-09T20:12:33+00:00",
+      "workKey": "llm prompt injection"
+    },
     {
       "id": "github:Detection-as-Code-Pipeline",
       "source": "github",
@@ -12,7 +22,7 @@ window.PORTFOLIO_ACTIVITY = {
       "title": "Detection as Code Pipeline",
       "detail": "A CI/CD pipeline that tests detection rules and auto-deploys if the rule passes. Utilizes Splunk REST API.",
       "url": "https://github.com/bran-dot-flake/Detection-as-Code-Pipeline",
-      "date": "2026-11-09T17:31:18+00:00",
+      "date": "2026-11-09T19:03:00+00:00",
       "workKey": "detection as code pipeline"
     },
     {
