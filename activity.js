@@ -1,8 +1,8 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-11-09T20:50:57+00:00",
+  "updatedAt": "2026-11-10T17:57:29+00:00",
   "sourceCheckedAt": {
-    "github": "2026-11-09T20:50:57+00:00",
-    "htb": "2026-11-09T20:50:57+00:00"
+    "github": "2026-11-10T17:57:29+00:00",
+    "htb": "2026-11-10T17:57:29+00:00"
   },
   "items": [
     {
@@ -10,9 +10,9 @@ window.PORTFOLIO_ACTIVITY = {
       "source": "github",
       "action": "built",
       "title": "LLM Prompt Injection",
-      "detail": "",
+      "detail": "Tested prompt injection against a local LLM help desk app and mapped the findings to the OWASP LLM Top 10.",
       "url": "https://github.com/bran-dot-flake/LLM-Prompt-Injection",
-      "date": "2026-11-09T20:12:33+00:00",
+      "date": "2026-11-10T17:53:16+00:00",
       "workKey": "llm prompt injection"
     },
     {
