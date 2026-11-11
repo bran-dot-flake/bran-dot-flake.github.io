@@ -1,18 +1,28 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-11-10T17:57:29+00:00",
+  "updatedAt": "2026-11-11T17:56:23+00:00",
   "sourceCheckedAt": {
-    "github": "2026-11-10T17:57:29+00:00",
-    "htb": "2026-11-10T17:57:29+00:00"
+    "github": "2026-11-11T17:56:23+00:00",
+    "htb": "2026-11-11T17:56:23+00:00"
   },
   "items": [
     {
-      "id": "github:LLM-Prompt-Injection",
+      "id": "github:STIX-TAXII-Threat-Intel-Automated-Summary",
       "source": "github",
       "action": "built",
+      "title": "STIX TAXII Threat Intel Automated Summary",
+      "detail": "",
+      "url": "https://github.com/bran-dot-flake/STIX-TAXII-Threat-Intel-Automated-Summary",
+      "date": "2026-11-11T17:44:14+00:00",
+      "workKey": "stix taxii threat intel automated summary"
+    },
+    {
+      "id": "github:LLM-Prompt-Injection",
+      "source": "github",
+      "action": "worked on",
       "title": "LLM Prompt Injection",
       "detail": "Tested prompt injection against a local LLM help desk app and mapped the findings to the OWASP LLM Top 10.",
       "url": "https://github.com/bran-dot-flake/LLM-Prompt-Injection",
-      "date": "2026-11-10T17:53:16+00:00",
+      "date": "2026-11-10T21:30:48+00:00",
       "workKey": "llm prompt injection"
     },
     {
