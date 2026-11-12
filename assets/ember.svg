@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" role="img" aria-labelledby="title desc">
+  <title id="title">From threat signals to a daily brief.</title>
+  <desc id="desc">CISA and CIRCL feeds support private MISP and OpenCTI correlation and an independent original-source export. Revalidated context can inform the public input. Local Ollama reporting passes claim checks before a source-linked daily edition is published. Private platform databases stay local.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="m1 1 7 4-7 4" fill="none" stroke="context-stroke" stroke-width="1.6"/></marker>
+  </defs>
+  <rect width="720" height="400" fill="#eeedf7"/>
+  <g font-family="Arial,sans-serif" fill="#29233c">
+    <text x="28" y="28" font-family="monospace" font-size="9" font-weight="600" fill="#9b431d">THREAT INTELLIGENCE / EMBER</text>
+    <text x="28" y="58" font-size="23" font-weight="700">From threat signals to a daily brief.</text>
+
+    <!-- Source documents and indicators converge into two independent paths. -->
+    <text x="28" y="103" font-family="monospace" font-size="8" fill="#716a84">PUBLIC THREAT SIGNALS</text>
+    <rect x="28" y="118" width="142" height="58" rx="6" fill="#fcfbff" stroke="#c9c5db"/>
+    <g fill="none" stroke="#9b431d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M43 132h17l7 7v23H43zM60 132v7h7"/><path d="M49 145h11m-11 5h11m-11 5h7"/></g>
+    <text x="79" y="142" font-size="12" font-weight="700">CISA</text>
+    <text x="79" y="159" font-size="9" fill="#716a84">KEV + advisories</text>
+    <rect x="28" y="190" width="142" height="58" rx="6" fill="#fcfbff" stroke="#c9c5db"/>
+    <g fill="none" stroke="#9b431d" stroke-width="1.5"><circle cx="55" cy="219" r="12"/><circle cx="55" cy="219" r="5"/><path d="M55 202v7m0 20v7m-17-17h7m20 0h7"/></g>
+    <text x="79" y="214" font-size="12" font-weight="700">CIRCL</text>
+    <text x="79" y="231" font-size="9" fill="#716a84">Indicators + context</text>
+    <g fill="none" stroke-width="1.6" stroke-linejoin="round"><path d="M170 147h24v72h-24" stroke="#bda4d4"/><path d="M194 183v-32h23" stroke="#7137b3" marker-end="url(#arrow)"/><path d="M194 219v69h23" stroke="#9b431d" marker-end="url(#arrow)"/></g>
+    <text x="28" y="281" font-family="monospace" font-size="8" fill="#9b431d">INDEPENDENT EXPORT</text>
+    <text x="28" y="298" font-size="9" fill="#716a84">Original sources rechecked</text>
+
+    <!-- Private graph: useful correlation, without exporting private databases. -->
+    <rect x="224" y="93" width="218" height="119" rx="8" fill="#fcfbff" stroke="#c9c5db"/>
+    <text x="240" y="113" font-family="monospace" font-size="8" fill="#7137b3">PRIVATE CORRELATION</text>
+    <g fill="none" stroke="#bda4d4" stroke-width="1.5"><path d="m256 143 36 21 37-28 39 27 40-23m-116 24 36 17 40-18m-39-27-1 45"/></g>
+    <g stroke="#7137b3" stroke-width="1.3"><circle cx="256" cy="143" r="7" fill="#e8def4"/><circle cx="292" cy="164" r="9" fill="#e8def4"/><circle cx="329" cy="136" r="6" fill="#e8def4"/><circle cx="328" cy="181" r="5" fill="#e8def4"/><circle cx="368" cy="163" r="9" fill="#e8def4"/><circle cx="408" cy="140" r="6" fill="#e8def4"/></g>
+    <text x="333" y="199" text-anchor="middle" font-size="12" font-weight="700">MISP + OpenCTI</text>
+    <path d="M333 215v25" fill="none" stroke="#bda4d4" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
+    <text x="347" y="230" font-family="monospace" font-size="7.5" fill="#716a84">Revalidated context only</text>
+
+    <!-- Local reporting: citations and a check gate are visible outputs. -->
+    <rect x="224" y="246" width="218" height="100" rx="8" fill="#fcfbff" stroke="#c9c5db"/>
+    <text x="240" y="265" font-family="monospace" font-size="7.5" fill="#9b431d">RECOLLECT → DRAFT → VALIDATE</text>
+    <g fill="none" stroke="#9b431d" stroke-width="1.4"><rect x="243" y="279" width="35" height="33" rx="5" fill="#fbefe9"/><path d="M250 274v5m10-5v5m10-5v5m-20 33v5m10-5v5m10-5v5m-32-30h5m-5 10h5m35-10h5m-5 10h5"/></g>
+    <text x="260.5" y="301" text-anchor="middle" font-family="monospace" font-size="14" font-weight="700" fill="#9b431d">AI</text>
+    <g font-family="monospace" font-size="9" fill="#9b431d"><text x="297" y="290">[1]</text><text x="297" y="309">[2]</text></g>
+    <g stroke="#c9c5db" stroke-width="2" stroke-linecap="round"><path d="M321 286h78m-78 5h58m-58 14h78m-78 5h46"/></g>
+    <g fill="none" stroke="#227340" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m407 284 3 3 6-7m-9 26 3 3 6-7"/></g>
+    <text x="333" y="333" text-anchor="middle" font-size="10" fill="#716a84">Ollama · source-grounded reporting</text>
+    <path d="M450 288h20V240h12" fill="none" stroke="#9b431d" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#arrow)"/>
+
+    <!-- The payoff is a recognizable daily publication, rather than a data dump. -->
+    <rect x="491" y="93" width="201" height="253" rx="8" fill="#fcfbff" stroke="#c9c5db"/>
+    <path d="M499 93h185a8 8 0 0 1 8 8v19H491v-19a8 8 0 0 1 8-8z" fill="#e3e1ef"/>
+    <circle cx="505" cy="106" r="2" fill="#b32876"/><circle cx="514" cy="106" r="2" fill="#94600a"/><circle cx="523" cy="106" r="2" fill="#227340"/>
+    <text x="537" y="109" font-family="monospace" font-size="7.5" fill="#716a84">DAILY OBSERVATORY</text>
+    <g transform="translate(505 133)"><path d="M13 0c2 9 12 10 12 20a12 12 0 0 1-24 0c0-6 6-10 6-15 4 2 5 5 5 7 3-4 2-8 1-12z" fill="#a85432"/><path d="M13 16c0 5 5 6 5 10a5 5 0 0 1-10 0c0-4 3-5 5-10z" fill="#fbefe9"/></g>
+    <text x="540" y="155" font-size="21" font-weight="700" fill="#9b431d">EMBER</text>
+    <text x="507" y="183" font-size="12" font-weight="700">Daily intelligence brief</text>
+    <text x="507" y="200" font-size="9" fill="#716a84">Threats · evidence · trends</text>
+    <path d="M507 212h169" stroke="#c9c5db"/>
+    <g stroke="#b9b3ca" stroke-width="3" stroke-linecap="round"><path d="M508 228h151m-151 10h162m-162 10h123"/></g>
+    <rect x="507" y="262" width="73" height="20" rx="4" fill="#fbefe9" stroke="#d6b3a2"/><rect x="587" y="262" width="89" height="20" rx="4" fill="#fbefe9" stroke="#d6b3a2"/>
+    <g font-family="monospace" font-size="8" fill="#9b431d"><text x="515" y="275">[1] CISA ↗</text><text x="595" y="275">[2] CIRCL ↗</text></g>
+    <path d="M507 305h169m-169-11v23" fill="none" stroke="#ded9e9"/>
+    <path d="m508 312 17-8 17 5 17-16 17 6 17-11 17 7 17-5 17 3 17-12 14 5" fill="none" stroke="#a85432" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="507" y="334" font-family="monospace" font-size="7.5" fill="#716a84">ILLUSTRATIVE EDITION / LINKED EVIDENCE</text>
+    <path d="M28 379h28" stroke="#9b431d" stroke-width="2"/>
+    <text x="67" y="382" font-family="monospace" font-size="8" fill="#716a84">PUBLIC SIGNALS → CITED CLAIMS → DAILY EDITION / PRIVATE STORES STAY LOCAL</text>
+  </g>
+</svg>
