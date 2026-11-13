@@ -1,29 +1,29 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-11-12T18:24:49+00:00",
+  "updatedAt": "2026-11-13T17:52:21+00:00",
   "sourceCheckedAt": {
-    "github": "2026-11-12T18:24:49+00:00",
-    "htb": "2026-11-12T18:24:49+00:00"
+    "github": "2026-11-13T17:52:21+00:00",
+    "htb": "2026-11-13T17:52:21+00:00"
   },
   "items": [
+    {
+      "id": "github:OSINT-and-Exploitation-Framework",
+      "source": "github",
+      "action": "built",
+      "title": "OSINT and Exploitation Framework",
+      "detail": "A modular penetration testing framework that uses OSINT, target enumeration, and vulnerability assessment to provide actionable exploitation guidance.",
+      "url": "https://github.com/bran-dot-flake/OSINT-and-Exploitation-Framework",
+      "date": "2026-11-13T17:50:58+00:00",
+      "workKey": "osint and exploitation framework"
+    },
     {
       "id": "github:STIX-TAXII-Threat-Intel-Automated-Summary",
       "source": "github",
       "action": "worked on",
       "title": "STIX TAXII Threat Intel Automated Summary",
-      "detail": "An autonomous threat intelligence pipeline that uses STIX/TAXII servers with MISP, OpenCTI, and a local LLM to generate daily reports.",
+      "detail": "An autonomous threat intelligence pipeline that uses STIX/TAXII servers with MISP, OpenCTI, and a local LLM to generate weekly reports.",
       "url": "https://github.com/bran-dot-flake/STIX-TAXII-Threat-Intel-Automated-Summary",
-      "date": "2026-11-12T16:39:12+00:00",
+      "date": "2026-11-13T08:10:46+00:00",
       "workKey": "stix taxii threat intel automated summary"
-    },
-    {
-      "id": "github:LLM-Prompt-Injection",
-      "source": "github",
-      "action": "worked on",
-      "title": "LLM Prompt Injection",
-      "detail": "Tested prompt injection against a local LLM help desk app and mapped the findings to the OWASP LLM Top 10.",
-      "url": "https://github.com/bran-dot-flake/LLM-Prompt-Injection",
-      "date": "2026-11-10T21:30:48+00:00",
-      "workKey": "llm prompt injection"
     },
     {
       "id": "github:Detection-as-Code-Pipeline",
