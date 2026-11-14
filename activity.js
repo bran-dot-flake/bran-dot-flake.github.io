@@ -1,20 +1,10 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-11-13T17:52:21+00:00",
+  "updatedAt": "2026-11-14T16:38:22+00:00",
   "sourceCheckedAt": {
-    "github": "2026-11-13T17:52:21+00:00",
-    "htb": "2026-11-13T17:52:21+00:00"
+    "github": "2026-11-14T16:38:22+00:00",
+    "htb": "2026-11-14T16:38:22+00:00"
   },
   "items": [
-    {
-      "id": "github:OSINT-and-Exploitation-Framework",
-      "source": "github",
-      "action": "built",
-      "title": "OSINT and Exploitation Framework",
-      "detail": "A modular penetration testing framework that uses OSINT, target enumeration, and vulnerability assessment to provide actionable exploitation guidance.",
-      "url": "https://github.com/bran-dot-flake/OSINT-and-Exploitation-Framework",
-      "date": "2026-11-13T17:50:58+00:00",
-      "workKey": "osint and exploitation framework"
-    },
     {
       "id": "github:STIX-TAXII-Threat-Intel-Automated-Summary",
       "source": "github",
@@ -22,7 +12,7 @@ window.PORTFOLIO_ACTIVITY = {
       "title": "STIX TAXII Threat Intel Automated Summary",
       "detail": "An autonomous threat intelligence pipeline that uses STIX/TAXII servers with MISP, OpenCTI, and a local LLM to generate weekly reports.",
       "url": "https://github.com/bran-dot-flake/STIX-TAXII-Threat-Intel-Automated-Summary",
-      "date": "2026-11-13T08:10:46+00:00",
+      "date": "2026-11-14T08:09:06+00:00",
       "workKey": "stix taxii threat intel automated summary"
     },
     {
