@@ -10,24 +10,24 @@ window.PORTFOLIO_STATS = {
       "level": 58,
       "source": "public-profile",
       "title": "Professional",
-      "updatedAt": "2026-11-16T20:33:38+00:00",
-      "xp": 323,
+      "updatedAt": "2026-11-17T19:14:04+00:00",
+      "xp": 783,
       "xpTotal": 1690
     },
-    "updatedAt": "2026-11-16T20:33:38+00:00"
+    "updatedAt": "2026-11-17T19:14:04+00:00"
   },
   "kc7": {
     "metrics": [
       4,
       3
     ],
-    "updatedAt": "2026-11-16T20:33:38+00:00"
+    "updatedAt": "2026-11-17T19:14:04+00:00"
   },
   "letsdefend": {
     "metrics": [
       24,
       2
     ],
-    "updatedAt": "2026-11-16T20:33:38+00:00"
+    "updatedAt": "2026-11-17T19:14:04+00:00"
   }
 };
