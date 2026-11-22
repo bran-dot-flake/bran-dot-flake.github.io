@@ -5,29 +5,29 @@ window.PORTFOLIO_STATS = {
       13
     ],
     "profile": {
-      "grade": 3,
-      "image": "https://htb-experience-prod-public-storage.s3.amazonaws.com/assets/ranks/svg/rank_professional.svg",
-      "level": 60,
+      "grade": 1,
+      "image": "https://htb-experience-prod-public-storage.s3.amazonaws.com/assets/ranks/svg/rank_master.svg",
+      "level": 61,
       "source": "public-profile",
-      "title": "Professional",
-      "updatedAt": "2026-11-21T17:38:06+00:00",
-      "xp": 1350,
-      "xpTotal": 1797
+      "title": "Master",
+      "updatedAt": "2026-11-22T17:54:00+00:00",
+      "xp": 673,
+      "xpTotal": 1852
     },
-    "updatedAt": "2026-11-21T17:38:06+00:00"
+    "updatedAt": "2026-11-22T17:54:00+00:00"
   },
   "kc7": {
     "metrics": [
       4,
       3
     ],
-    "updatedAt": "2026-11-21T17:38:06+00:00"
+    "updatedAt": "2026-11-22T17:54:00+00:00"
   },
   "letsdefend": {
     "metrics": [
       24,
       2
     ],
-    "updatedAt": "2026-11-21T17:38:06+00:00"
+    "updatedAt": "2026-11-22T17:54:00+00:00"
   }
 };
