@@ -1,5 +1,5 @@
 window.PORTFOLIO_NOTES = {
-  "updatedAt": "2026-11-22T17:54:04+00:00",
+  "updatedAt": "2026-11-23T22:05:42+00:00",
   "notes": [
     {
       "id": "bedside-note",

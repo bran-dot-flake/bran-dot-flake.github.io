@@ -1,8 +1,8 @@
 window.PORTFOLIO_ACTIVITY = {
-  "updatedAt": "2026-11-22T17:54:04+00:00",
+  "updatedAt": "2026-11-23T22:05:42+00:00",
   "sourceCheckedAt": {
-    "github": "2026-11-22T17:54:04+00:00",
-    "htb": "2026-11-22T17:54:04+00:00"
+    "github": "2026-11-23T22:05:42+00:00",
+    "htb": "2026-11-23T22:05:42+00:00"
   },
   "items": [
     {
@@ -12,7 +12,7 @@ window.PORTFOLIO_ACTIVITY = {
       "title": "STIX TAXII Threat Intel Automated Summary",
       "detail": "An autonomous threat intelligence pipeline that uses STIX/TAXII servers with MISP, OpenCTI, and a local LLM to generate weekly reports.",
       "url": "https://github.com/bran-dot-flake/STIX-TAXII-Threat-Intel-Automated-Summary",
-      "date": "2026-11-22T08:05:53+00:00",
+      "date": "2026-11-23T08:07:39+00:00",
       "workKey": "stix taxii threat intel automated summary"
     },
     {
